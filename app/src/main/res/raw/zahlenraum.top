@@ -1,0 +1,36 @@
+topic: ~zahlenraum()
+
+
+proposal: %Zahlenraum20
+Ich denke an eine Zahl 0 und 20 und du musst sie raten.
+u1:( Meine Zahl ist _$peppersNumber) Super!
+u1:(Meine Zahl ist _*)
+    $guessedNumber = $1
+    ^first[
+    "Leider falsch! Meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"
+    "Meine Zahl ist kleiner als deine! $guessedNumber > $peppersNumber"
+    ] ^stayInScope
+    #enablethengoto
+u1:(Keine Lust mehr) Okay!
+
+proposal: %Zahlenraum50
+Ich denke an eine Zahl 0 und 50 und du musst sie raten.
+u1:( Meine Zahl ist _$peppersNumber) Super!
+u1:(Meine Zahl ist _*)
+    $guessedNumber = $1
+    ^first[
+    "Leider falsch, meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"
+    "Meine Zahl ist kleiner als deine! $guessedNumber > $peppersNumber"
+    ] ^stayInScope
+u1:(Keine Lust mehr) Okay!
+
+proposal: %Zahlenraum100
+Ich denke an eine Zahl 0 und 100 und du musst sie raten.
+u1:( Meine Zahl ist _$peppersNumber) Super!
+u1:(Meine Zahl ist _*)
+    $guessedNumber = $1
+    ^first[
+    "Leider falsch, meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"
+    "Meine Zahl ist kleiner als deine! $guessedNumber > $peppersNumber"
+    ] ^stayInScope
+u1:(Keine Lust mehr) Okay!

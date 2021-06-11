@@ -1,0 +1,6 @@
+topic: ~small_talk()
+
+concept:(Spiel) Mr.X
+concept:(Begrüßung) ^rand{Hallo Hey Hi "Guten Morgen"}
+u:(~Begrüßung) ~Begrüßung
+u:(~Spiel)Sehr gerne! Wähle den Zahlenbereich über das Tablet aus!
