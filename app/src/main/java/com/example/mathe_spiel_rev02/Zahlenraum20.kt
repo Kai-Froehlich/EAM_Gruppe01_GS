@@ -24,8 +24,7 @@ class Zahlenraum20 : RobotActivity(), RobotLifecycleCallbacks {
     lateinit var locale : Locale
     // Store the Animate action.
     private var animate: Animate? = null
-    private var GuessedNumber: QiChatVariable? = null
-    private var PeppersNumber: QiChatVariable? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
