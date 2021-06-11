@@ -62,7 +62,7 @@ class Zahlenraum100 : RobotActivity(), RobotLifecycleCallbacks {
 
         // Animation
         val executors = HashMap<String,QiChatExecutor>()
-        executors["Applaus"] = Zahlenraum20.MyQiChatExecutor(qiContext)
+        executors["Applaus"] = Zahlenraum100.MyQiChatExecutor(qiContext)
         qiChatbot.executors = executors
         val chatbots = mutableListOf<Chatbot>()
         chatbots.add(qiChatbot)

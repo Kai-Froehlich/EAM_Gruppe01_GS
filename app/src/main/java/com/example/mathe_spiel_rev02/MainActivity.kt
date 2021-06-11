@@ -11,13 +11,13 @@ import android.widget.Toast
 import com.aldebaran.qi.sdk.QiContext
 import com.aldebaran.qi.sdk.QiSDK
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks
+import com.aldebaran.qi.sdk.`object`.actuation.Animate
+import com.aldebaran.qi.sdk.`object`.actuation.Animation
 import com.aldebaran.qi.sdk.`object`.conversation.*
 import com.aldebaran.qi.sdk.`object`.locale.Language
 import com.aldebaran.qi.sdk.`object`.locale.Locale
 import com.aldebaran.qi.sdk.`object`.locale.Region
-import com.aldebaran.qi.sdk.builder.ChatBuilder
-import com.aldebaran.qi.sdk.builder.QiChatbotBuilder
-import com.aldebaran.qi.sdk.builder.TopicBuilder
+import com.aldebaran.qi.sdk.builder.*
 import com.aldebaran.qi.sdk.design.activity.RobotActivity
 import kotlin.random.Random
 import kotlin.random.nextUInt
@@ -25,15 +25,18 @@ import kotlin.random.nextUInt
 class MainActivity : RobotActivity(), RobotLifecycleCallbacks  {
 
     // Store the QiChatbot.
-    lateinit var qiChatbot1: QiChatbot
-    lateinit var chat1: Chat
-    lateinit var topic1 : Topic
-    lateinit var locale1 : Locale
+    lateinit var qiChatbot: QiChatbot
+    lateinit var chat: Chat
+    lateinit var topic : Topic
+    lateinit var locale : Locale
 
 
     lateinit var button1: Button
     lateinit var button2: Button
     lateinit var button3: Button
+
+    // Store the Animate action.
+    private var animate: Animate? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,18 +64,39 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks  {
 
     }
 
+    class MyQiChatExecutor(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
+        override fun runWith(params: MutableList<String>?) {
+            animate(qiContext)
+        }
+
+        override fun stop() {
+            TODO("Not yet implemented")
+        }
+        private fun animate(qiContext: QiContext?){
+            val animation: Animation = AnimationBuilder.with(qiContext).withResources(R.raw.hello_a009).build()
+            val animate: Animate = AnimateBuilder.with(qiContext).withAnimation(animation).build()
+            animate.run()
+        }
+    }
+
     override fun onRobotFocusGained(qiContext: QiContext?) {
 
         // Festlegen der Sprache des Roboters
-        locale1 = com.aldebaran.qi.sdk.`object`.locale.Locale(Language.GERMAN, Region.GERMANY)
+        locale = com.aldebaran.qi.sdk.`object`.locale.Locale(Language.GERMAN, Region.GERMANY)
         // Einbinden des zuvor erstellen Topics
-        topic1 = TopicBuilder.with(qiContext).withResource(R.raw.small_talk).build()
+        topic = TopicBuilder.with(qiContext).withResource(R.raw.small_talk).build()
         // Erstellen qiChatbot
-        qiChatbot1 = QiChatbotBuilder.with(qiContext).withTopic(topic1).withLocale(locale1).build()
+        qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).withLocale(locale).build()
         // Chat erstellen
-        chat1 = ChatBuilder.with(qiContext).withChatbot(qiChatbot1).withLocale(locale1).build()
+        chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).withLocale(locale).build()
 
-        chat1.run()
+        val executors = HashMap<String,QiChatExecutor>()
+        executors["Begruessung"] = MainActivity.MyQiChatExecutor(qiContext)
+        qiChatbot.executors = executors
+        val chatbots = mutableListOf<Chatbot>()
+        chatbots.add(qiChatbot)
+
+        chat.async().run()
 
     }
 
