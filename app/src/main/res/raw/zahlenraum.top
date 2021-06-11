@@ -3,7 +3,7 @@ topic: ~zahlenraum()
 
 proposal: %Zahlenraum20
 Ich denke an eine Zahl 0 und 20 und du musst sie raten.
-u1:( Meine Zahl ist _$peppersNumber) Super!
+u1:( Meine Zahl ist _$peppersNumber) Super! ^execute(Applaus)
 u1:(Meine Zahl ist _*)
     $guessedNumber = $1
     ^first[
