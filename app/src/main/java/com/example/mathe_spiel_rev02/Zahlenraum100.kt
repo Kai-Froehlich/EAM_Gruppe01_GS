@@ -4,13 +4,13 @@ import android.os.Bundle
 import com.aldebaran.qi.sdk.QiContext
 import com.aldebaran.qi.sdk.QiSDK
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks
+import com.aldebaran.qi.sdk.`object`.actuation.Animate
+import com.aldebaran.qi.sdk.`object`.actuation.Animation
 import com.aldebaran.qi.sdk.`object`.conversation.*
 import com.aldebaran.qi.sdk.`object`.locale.Language
 import com.aldebaran.qi.sdk.`object`.locale.Locale
 import com.aldebaran.qi.sdk.`object`.locale.Region
-import com.aldebaran.qi.sdk.builder.ChatBuilder
-import com.aldebaran.qi.sdk.builder.QiChatbotBuilder
-import com.aldebaran.qi.sdk.builder.TopicBuilder
+import com.aldebaran.qi.sdk.builder.*
 import com.aldebaran.qi.sdk.design.activity.RobotActivity
 import kotlin.random.Random
 
@@ -22,10 +22,28 @@ class Zahlenraum100 : RobotActivity(), RobotLifecycleCallbacks {
     lateinit var topic : Topic
     lateinit var locale : Locale
 
+    // Store the Animate action.
+    private var animate: Animate? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_zahlenraum)
         QiSDK.register(this,this)
+    }
+
+    class MyQiChatExecutor(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
+        override fun runWith(params: MutableList<String>?) {
+            animate(qiContext)
+        }
+
+        override fun stop() {
+            TODO("Not yet implemented")
+        }
+        private fun animate(qiContext: QiContext?){
+            val animation: Animation = AnimationBuilder.with(qiContext).withResources(R.raw.clapping_b001).build()
+            val animate: Animate = AnimateBuilder.with(qiContext).withAnimation(animation).build()
+            animate.run()
+        }
     }
 
     override fun onRobotFocusGained(qiContext: QiContext?) {
@@ -41,6 +59,13 @@ class Zahlenraum100 : RobotActivity(), RobotLifecycleCallbacks {
 
         randomize()
         chat.addOnStartedListener { goToBookmark("Zahlenraum100") }
+
+        // Animation
+        val executors = HashMap<String,QiChatExecutor>()
+        executors["Applaus"] = Zahlenraum20.MyQiChatExecutor(qiContext)
+        qiChatbot.executors = executors
+        val chatbots = mutableListOf<Chatbot>()
+        chatbots.add(qiChatbot)
         //chat.addOnStartedListener { goToBookmark("Zahlenraum20") }
         // Ausführen des Chats
         // Get the variable.

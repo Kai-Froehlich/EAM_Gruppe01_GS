@@ -15,7 +15,7 @@ u1:(Keine Lust mehr) Okay!
 
 proposal: %Zahlenraum50
 Ich denke an eine Zahl 0 und 50 und du musst sie raten.
-u1:( Meine Zahl ist _$peppersNumber) Super!
+u1:( Meine Zahl ist _$peppersNumber) Super! ^execute(Applaus)
 u1:(Meine Zahl ist _*)
     $guessedNumber = $1
     ^first[
@@ -26,7 +26,7 @@ u1:(Keine Lust mehr) Okay!
 
 proposal: %Zahlenraum100
 Ich denke an eine Zahl 0 und 100 und du musst sie raten.
-u1:( Meine Zahl ist _$peppersNumber) Super!
+u1:( Meine Zahl ist _$peppersNumber) Super! ^execute(Applaus)
 u1:(Meine Zahl ist _*)
     $guessedNumber = $1
     ^first[
