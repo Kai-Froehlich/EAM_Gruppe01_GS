@@ -11,10 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mathe_Spiel_rev02">
-        <activity android:name=".Zahlenraum100"></activity>
+        <activity android:name=".Abfrage"></activity>
+        <activity android:name=".Zahlenraum100" />
         <activity android:name=".Zahlenraum50" />
         <activity android:name=".Zahlenraum20" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Mr_X" />
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

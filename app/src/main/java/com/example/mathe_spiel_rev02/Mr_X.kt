@@ -1,5 +1,7 @@
 package com.example.mathe_spiel_rev02
 
+
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -15,7 +17,7 @@ import com.aldebaran.qi.sdk.`object`.locale.Region
 import com.aldebaran.qi.sdk.builder.*
 import com.aldebaran.qi.sdk.design.activity.RobotActivity
 
-class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
+class Mr_X : RobotActivity(), RobotLifecycleCallbacks  {
 
     // Store the QiChatbot.
     lateinit var qiChatbot: QiChatbot
@@ -23,29 +25,38 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
     lateinit var topic : Topic
     lateinit var locale : Locale
 
+
     lateinit var button1: Button
     lateinit var button2: Button
+    lateinit var button3: Button
 
+    // Store the Animate action.
     private var animate: Animate? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_small_talk)
+        setContentView(R.layout.activity_main)
 
-        button1 = findViewById(R.id.Mr_x)
-        button2 = findViewById(R.id.Abfrage)
+         button1 = findViewById(R.id.Zahlenraum20)
+         button2 = findViewById(R.id.Zahlenraum50)
+         button3 = findViewById(R.id.Zahlenraum100)
 
         QiSDK.register(this,this)
 
         button1.setOnClickListener {
-            val intent = Intent(this,Mr_X::class.java)
+            val intent = Intent(this,Zahlenraum20::class.java)
             startActivity(intent)
         }
         button2.setOnClickListener {
-            val intent = Intent(this,Abfrage::class.java)
+            val intent = Intent(this,Zahlenraum50::class.java)
             startActivity(intent)
         }
+        button3.setOnClickListener {
+            val intent = Intent(this,Zahlenraum100::class.java)
+            startActivity(intent)
+        }
+
     }
 
     class MyQiChatExecutor(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
@@ -74,13 +85,14 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
         // Chat erstellen
         chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).withLocale(locale).build()
 
-        val executors = HashMap<String, QiChatExecutor>()
-        executors["Begruessung"] = MainActivity.MyQiChatExecutor(qiContext)
+        val executors = HashMap<String,QiChatExecutor>()
+        executors["Begruessung"] = Mr_X.MyQiChatExecutor(qiContext)
         qiChatbot.executors = executors
         val chatbots = mutableListOf<Chatbot>()
         chatbots.add(qiChatbot)
 
         chat.async().run()
+
     }
 
     override fun onRobotFocusLost() {
