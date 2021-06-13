@@ -1,50 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:gravity="center"
     tools:context=".Mr_X">
 
     <Button
         android:id="@+id/Zahlenraum20"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="139dp"
-        android:layout_marginTop="267dp"
-        android:layout_marginEnd="726dp"
-        android:layout_marginBottom="286dp"
-        android:text="Zahlenraum20"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginRight="25dp"
+        android:layout_weight="1"
+        android:text="0 bis 20"
+        android:textSize="24sp"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:textColor="@android:color/black"/>
 
     <Button
         android:id="@+id/Zahlenraum50"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="196dp"
-        android:layout_marginTop="275dp"
-        android:layout_marginEnd="433dp"
-        android:layout_marginBottom="278dp"
-        android:text="Zahlenraum50"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Zahlenraum20"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_weight="1"
+        android:text="0 bis 50"
+        android:textSize="24sp"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:textColor="@android:color/black"/>
 
     <Button
         android:id="@+id/Zahlenraum100"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="233dp"
-        android:layout_marginTop="275dp"
-        android:layout_marginEnd="103dp"
-        android:layout_marginBottom="278dp"
-        android:text="Zahlenraum100"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Zahlenraum50"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginLeft="25dp"
+        android:layout_weight="1"
+        android:text="0 bis 100"
+        android:textSize="24sp"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:textColor="@android:color/black"/>
+</LinearLayout>

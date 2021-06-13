@@ -1,10 +1,12 @@
 topic: ~zahlenraum()
 
+proposal: %Spiel
+Wähle den gewünschten Zahlenbereich über das Tablet aus!
 
 proposal: %Zahlenraum20
-Ich denke an eine Zahl 0 und 20 und du musst sie raten.
-u1:( Meine Zahl ist _$peppersNumber) Super! ^execute(Applaus)
-u1:(Meine Zahl ist _*)
+Ich denke an eine Zahl zwischen 0 und 20 und du musst sie erraten.
+u1:(Ist es die Zahl _$peppersNumber) Super, du hast meine Zahl erraten! ^execute(Applaus)
+u1:(Ist es die Zahl _*)
     $guessedNumber = $1
     ^first[
     "Leider falsch! Meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"
@@ -14,9 +16,9 @@ u1:(Meine Zahl ist _*)
 u1:(Keine Lust mehr) Okay!
 
 proposal: %Zahlenraum50
-Ich denke an eine Zahl 0 und 50 und du musst sie raten.
-u1:( Meine Zahl ist _$peppersNumber) Super! ^execute(Applaus)
-u1:(Meine Zahl ist _*)
+Ich denke an eine Zahl zwischen 0 und 50 und du musst sie erraten.
+u1:(Ist es die Zahl _$peppersNumber) Super, du hast meine Zahl erraten! ^execute(Applaus)
+u1:(Ist es die Zahl _*)
     $guessedNumber = $1
     ^first[
     "Leider falsch, meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"
@@ -25,9 +27,9 @@ u1:(Meine Zahl ist _*)
 u1:(Keine Lust mehr) Okay!
 
 proposal: %Zahlenraum100
-Ich denke an eine Zahl 0 und 100 und du musst sie raten.
-u1:( Meine Zahl ist _$peppersNumber) Super! ^execute(Applaus)
-u1:(Meine Zahl ist _*)
+Ich denke an eine Zahl zwischen 0 und 100 und du musst sie erraten.
+u1:(Ist es die Zahl _$peppersNumber) Super, du hast meine Zahl erraten! ^execute(Applaus)
+u1:(Ist es die Zahl _*)
     $guessedNumber = $1
     ^first[
     "Leider falsch, meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"

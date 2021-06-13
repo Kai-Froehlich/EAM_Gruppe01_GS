@@ -59,40 +59,30 @@ class Mr_X : RobotActivity(), RobotLifecycleCallbacks  {
 
     }
 
-    class MyQiChatExecutor(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
-        override fun runWith(params: MutableList<String>?) {
-            animate(qiContext)
-        }
-
-        override fun stop() {
-            TODO("Not yet implemented")
-        }
-        private fun animate(qiContext: QiContext?){
-            val animation: Animation = AnimationBuilder.with(qiContext).withResources(R.raw.hello_a009).build()
-            val animate: Animate = AnimateBuilder.with(qiContext).withAnimation(animation).build()
-            animate.run()
-        }
-    }
 
     override fun onRobotFocusGained(qiContext: QiContext?) {
 
         // Festlegen der Sprache des Roboters
         locale = com.aldebaran.qi.sdk.`object`.locale.Locale(Language.GERMAN, Region.GERMANY)
         // Einbinden des zuvor erstellen Topics
-        topic = TopicBuilder.with(qiContext).withResource(R.raw.small_talk).build()
+        topic = TopicBuilder.with(qiContext).withResource(R.raw.zahlenraum).build()
         // Erstellen qiChatbot
         qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).withLocale(locale).build()
         // Chat erstellen
         chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).withLocale(locale).build()
 
-        val executors = HashMap<String,QiChatExecutor>()
-        executors["Begruessung"] = Mr_X.MyQiChatExecutor(qiContext)
-        qiChatbot.executors = executors
-        val chatbots = mutableListOf<Chatbot>()
-        chatbots.add(qiChatbot)
+        chat.addOnStartedListener { goToBookmark("Spiel") }
+
 
         chat.async().run()
 
+    }
+
+    private fun  goToBookmark(bookmarkName : String) {
+        qiChatbot.goToBookmark(
+                topic.bookmarks[bookmarkName],
+                AutonomousReactionImportance.HIGH,
+                AutonomousReactionValidity.IMMEDIATE)
     }
 
     override fun onRobotFocusLost() {
