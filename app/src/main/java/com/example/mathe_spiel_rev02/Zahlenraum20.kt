@@ -86,7 +86,8 @@ class Zahlenraum20 : RobotActivity(), RobotLifecycleCallbacks {
     }
 
     private fun randomize() {
-        val Zahl_A = Random.nextInt(0,20)
+        //val Zahl_A = Random.nextInt(0,20)
+        val Zahl_A = 4
         qiChatbot.variable("peppersNumber").value = "$Zahl_A"
 
     }
