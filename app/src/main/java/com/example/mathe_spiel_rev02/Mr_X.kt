@@ -21,6 +21,7 @@ class Mr_X : RobotActivity(), RobotLifecycleCallbacks  {
 
     // Store the QiChatbot.
     lateinit var qiChatbot: QiChatbot
+
     lateinit var chat: Chat
     lateinit var topic : Topic
     lateinit var locale : Locale
