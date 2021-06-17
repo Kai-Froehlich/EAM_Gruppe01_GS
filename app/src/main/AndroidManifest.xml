@@ -11,12 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mathe_Spiel_rev02">
-        <activity android:name=".Abfrage"></activity>
+        <activity android:name=".Hauptstaedte_der_Nachbarlaender"></activity>
+        <activity android:name=".Nachbarlaender" />
+        <activity android:name=".Landeshauptstaedte" />
+        <activity android:name=".Bundeslaender" />
+        <activity android:name=".Abfrage" />
         <activity android:name=".Zahlenraum100" />
         <activity android:name=".Zahlenraum50" />
         <activity android:name=".Zahlenraum20" />
         <activity android:name=".Mr_X" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
