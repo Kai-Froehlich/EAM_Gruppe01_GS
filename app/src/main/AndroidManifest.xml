@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mathe_spiel_rev02">
+    package="com.example.mathe_spiel_rev02" >
 
     <uses-feature android:name="com.softbank.hardware.pepper" />
 
@@ -10,8 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Mathe_Spiel_rev02">
-        <activity android:name=".Hauptstaedte_der_Nachbarlaender"></activity>
+        android:theme="@style/Theme.Mathe_Spiel_rev02" >
+        <activity android:name=".Hauptstaedte_der_Nachbarlaender" />
         <activity android:name=".Nachbarlaender" />
         <activity android:name=".Landeshauptstaedte" />
         <activity android:name=".Bundeslaender" />
@@ -20,7 +20,7 @@
         <activity android:name=".Zahlenraum50" />
         <activity android:name=".Zahlenraum20" />
         <activity android:name=".Mr_X" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

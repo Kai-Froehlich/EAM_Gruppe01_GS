@@ -63,20 +63,20 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
         }
     }
 
-    class MyQiChatExecutor2(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
-        override fun runWith(params: MutableList<String>?) {
-            animate(qiContext)
-        }
+    //class MyQiChatExecutor2(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
+    //    override fun runWith(params: MutableList<String>?) {
+    //        animate(qiContext)
+    //    }
 
-        override fun stop() {
-            TODO("Not yet implemented")
-        }
-        private fun animate(qiContext: QiContext?){
-            val animation: Animation = AnimationBuilder.with(qiContext).withResources(R.raw.funny_a001).build()
-            val animate: Animate = AnimateBuilder.with(qiContext).withAnimation(animation).build()
-            animate.run()
-        }
-    }
+    //    override fun stop() {
+    //        TODO("Not yet implemented")
+    //    }
+    //    private fun animate(qiContext: QiContext?){
+    //        val animation: Animation = AnimationBuilder.with(qiContext).withResources(R.raw.funny_a001).build()
+    //        val animate: Animate = AnimateBuilder.with(qiContext).withAnimation(animation).build()
+    //        animate.run()
+    //    }
+    //}
 
 
     override fun onRobotFocusGained(qiContext: QiContext?) {
@@ -96,11 +96,11 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
         val chatbots = mutableListOf<Chatbot>()
         chatbots.add(qiChatbot)
 
-        val executors2 = HashMap<String, QiChatExecutor>()
-        executors2["funny"] = MainActivity.MyQiChatExecutor2(qiContext)
-        qiChatbot.executors = executors2
-        val chatbots2 = mutableListOf<Chatbot>()
-        chatbots2.add(qiChatbot)
+     //   val executors2 = HashMap<String, QiChatExecutor>()
+     //   executors2["funny"] = MainActivity.MyQiChatExecutor2(qiContext)
+     //   qiChatbot.executors = executors2
+     //   val chatbots2 = mutableListOf<Chatbot>()
+     //   chatbots2.add(qiChatbot)
 
         chat.async().run()
     }
