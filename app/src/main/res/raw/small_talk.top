@@ -3,9 +3,15 @@ topic: ~small_talk()
 concept:(Spielen) [Mr.X lernen Länder Bundesländer Haupstädte spielen "Mister X"]
 concept:(Begrüßung) ^rand{Hallo Hey Hi "Guten Morgen"}
 concept:(Witz) ["erzähle mir einen Witz" "kennst du Witze"]
+concept:(Wohlbefinden_Frage) ["Wie geht es" "Wie fühlst du dich"]
+concept:(Wohlbefinden) ["Heute geht es mir sehr gut wie geht es dir?" "Mir geht es gut! Wie fühlst du dich heute?" "Ich fühle mich toll! Wie geht es dir?"]
+concept:(Wohlbefinden_gut) [gut prima klassse bestens]
+concept:(Wohlbefinden_schlecht) [schlecht "gar nicht gut" "nicht so toll"]
+
 u:(~Begrüßung) ~Begrüßung  ^execute(Begruessung)
 u:(~Spielen) Alles klar! Such dir das Spiel auf dem Tablet aus.
 u:(~Witz) ^gotoRandom(WITZE)
+u:(~Wohlbefinden_Frage) ~Wohlbefinden
 
 proposal:%WITZE Was ist klein, grün und dreieckig?
     u1:(weiß nicht) Ein kleines grünes Dreieck! Haha ^enableThenGoto(START)
