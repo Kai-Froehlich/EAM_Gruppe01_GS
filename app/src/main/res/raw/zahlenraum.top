@@ -8,7 +8,7 @@ proposal: %Zahlenraum20
 Ich denke an eine Zahl zwischen 0 und 20 und du musst sie erraten.
 
 u1:(Ist es die Zahl _$peppersNumber) Super, du hast meine Zahl erraten! ^execute(Applaus)
-u1:(Ist es die Zahl _[0 1 2 3  5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20])
+u1:(Ist es die Zahl _*)
     $guessedNumber = $1
     ^first[
     "Leider falsch! Meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"
