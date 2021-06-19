@@ -2,7 +2,7 @@ topic: ~small_talk()
 
 #concept:(Spielen) [Mr.X lernen Länder Bundesländer Haupstädte spielen "Mister X"]
 concept:(Begrüßung) ^rand{Hallo Hey Hi "Guten Morgen"}
-#concept:(Witz) ["erzähle mir einen Witz" "kennst du Witze"]
+concept:(Witz) ["erzähle mir einen Witz" "kennst du Witze"]
 #concept:(Wohlbefinden_Frage) ["Wie geht es" "Wie fühlst du dich"]
 #concept:(Wohlbefinden) ["Heute geht es mir sehr gut wie geht es dir?" "Mir geht es gut! Wie fühlst du dich heute?" "Ich fühle mich toll! Wie geht es dir?" "Heute füle ich mich nicht so gut! Wie geht es dir?"]
 #concept:(Wohlbefinden_gut) [gut prima klassse bestens]
@@ -22,23 +22,23 @@ proposal: %START Was kann ich für dich tun?
 #    u:(nichts) Ok!
 
 
-#proposal:%WITZE Was ist klein, grün und dreieckig?
-#    u1:(weiß nicht) Ein kleines grünes Dreieck! Haha  ^execute(funny) ^enableThenGoto(START)
-#    u1:(Ein kleines grünes Dreieck!) den Witz kanntest du also schon! ^enableThenGoto(START)
+proposal:%WITZE Was ist klein, grün und dreieckig?
+    u1:(weiß nicht) Ein kleines grünes Dreieck! Haha  ^execute(funny) ^enableThenGoto(START)
+    u1:(Ein kleines grünes Dreieck!) den Witz kanntest du also schon! ^enableThenGoto(START)
 
-#proposal:%WITZE Was ist gelb und kann nicht schwimmen?
-#    u1:(weiß nicht) Ein Bagger! Haha, und warum kann er nicht schwimmen?
-#        u2:(weiß nicht) Weil er nur einen Arm hat...! ^execute(funny) ^enableThenGoto(START)
-#        u2:(weil er nur einen Arm hat) Gut, kanntest du den Witz also schon? ^enableThenGoto(START)
-#    u1:(Ein Bagger) den Witz kanntest du also schon!  ^enableThenGoto(START)
+proposal:%WITZE Was ist gelb und kann nicht schwimmen?
+    u1:(weiß nicht) Ein Bagger! Haha, und warum kann er nicht schwimmen?
+        u2:(weiß nicht) Weil er nur einen Arm hat...! ^execute(funny) ^enableThenGoto(START)
+        u2:(weil er nur einen Arm hat) Gut, kanntest du den Witz also schon? ^enableThenGoto(START)
+    u1:(Ein Bagger) den Witz kanntest du also schon!  ^enableThenGoto(START)
 
-#proposal:%WITZE Was sagt der große Stift zum kleinen Stift?
-#    u1:(weiß nicht) Wachs mal Stift! Hahaha ^execute(funny) ^enableThenGoto(START)
-#    u1:(Wachs mal Stift!) Oh Schade dann kanntest du den Witz schon! ^enableThenGoto(START)
+proposal:%WITZE Was sagt der große Stift zum kleinen Stift?
+    u1:(weiß nicht) Wachs mal Stift! Hahaha ^execute(funny) ^enableThenGoto(START)
+    u1:(Wachs mal Stift!) Oh Schade dann kanntest du den Witz schon! ^enableThenGoto(START)
 
-#proposal:%WITZE Was liegt am Strand und ist schlecht zu verstehen?
-#    u1:(weiß nicht) Eine Nuschel! ^execute(funny) ^enableThenGoto(START)
-#    u1:(Eine Nuschel!) Oh Schade dann kanntest du den Witz schon!  ^enableThenGoto(START)
+proposal:%WITZE Was liegt am Strand und ist schlecht zu verstehen?
+    u1:(weiß nicht) Eine Nuschel! ^execute(funny) ^enableThenGoto(START)
+    u1:(Eine Nuschel!) Oh Schade dann kanntest du den Witz schon!  ^enableThenGoto(START)
 
 
 #proposal:%Wohlbefinden_proposal ~Wohlbefinden
