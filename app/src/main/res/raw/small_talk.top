@@ -12,6 +12,10 @@ concept:(Witz) ["erzähle mir einen Witz" "kennst du Witze"]
 
 
 u:(~Begrüßung) ~Begrüßung  ^execute(Begruessung) ^goto(START)
+#u:(~Begrüßung) ~Begrüßung  ^goto(START)
+#u:(~Begrüßung) ~Begrüßung  ^execute(Begruessung)
+
+#u:(~Witz) ^gotoRandom(WITZE)
 
 
 proposal: %START Was kann ich für dich tun?
@@ -23,7 +27,7 @@ proposal: %START Was kann ich für dich tun?
 
 
 proposal:%WITZE Was ist klein, grün und dreieckig?
-    u1:(weiß nicht) Ein kleines grünes Dreieck! Haha  ^execute(funny) ^enableThenGoto(START)
+    u1:(weiß nicht) Ein kleines grünes Dreieck! Haha ^execute(funny) ^enableThenGoto(START)
     u1:(Ein kleines grünes Dreieck!) den Witz kanntest du also schon! ^enableThenGoto(START)
 
 proposal:%WITZE Was ist gelb und kann nicht schwimmen?
