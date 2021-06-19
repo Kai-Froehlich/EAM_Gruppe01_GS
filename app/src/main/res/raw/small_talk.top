@@ -13,9 +13,10 @@ concept:(Begrüßung) ^rand{Hallo Hey Hi "Guten Morgen"}
 
 u:(~Begrüßung) ~Begrüßung  ^execute(Begruessung) ^goto(START)
 
-#proposal: %START
+
+proposal: %START Was kann ich für dich tun?
 #    u:(~Spielen) Alles klar! Such dir das Spiel auf dem Tablet aus.
-#    u:(~Witz) ^gotoRandom(WITZE)
+    u:(~Witz) ^gotoRandom(WITZE)
 #    u:(~Wohlbefinden_Frage) ^goto(Wohlbefinden_proposal)
 #    u:(~Ort) ^goto(Ort_proposal)
 #    u:(nichts) Ok!
@@ -31,7 +32,7 @@ u:(~Begrüßung) ~Begrüßung  ^execute(Begruessung) ^goto(START)
 #        u2:(weil er nur einen Arm hat) Gut, kanntest du den Witz also schon? ^enableThenGoto(START)
 #    u1:(Ein Bagger) den Witz kanntest du also schon!  ^enableThenGoto(START)
 
-#proposal:%WITZE Was sagt der große Stift zum kleinen Stift
+#proposal:%WITZE Was sagt der große Stift zum kleinen Stift?
 #    u1:(weiß nicht) Wachs mal Stift! Hahaha ^execute(funny) ^enableThenGoto(START)
 #    u1:(Wachs mal Stift!) Oh Schade dann kanntest du den Witz schon! ^enableThenGoto(START)
 
