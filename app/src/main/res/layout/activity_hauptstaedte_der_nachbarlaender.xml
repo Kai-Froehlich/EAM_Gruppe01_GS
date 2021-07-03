@@ -1,9 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginLeft="25dp"
+    android:layout_marginTop="25dp"
+    android:layout_marginRight="25dp"
+    android:layout_marginBottom="25dp"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".Hauptstaedte_der_Nachbarlaender">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_weight="0"
+        android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="600dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="-100dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Hauptstädte der Nachbarländer"
+            android:textColor="@android:color/black"
+            android:textSize="36sp" />
+
+        <Button
+            android:id="@+id/home1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="00dp"
+            android:layout_weight="0"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:text="HOME"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/deutschland_karte" />
+
+
+
+</LinearLayout>
+
