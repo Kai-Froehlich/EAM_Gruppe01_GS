@@ -1,6 +1,236 @@
 topic: ~nachbarlaender()
-# Defining extra concepts out of words or group of words
-#concept:(hello) [hello hi hey "good morning" greetings]
 
-# Replying to speech
-#u:(~hello) ~hello
+concept:(hallo) ^rand[Hallo hallo hi Hi "Guten Tag" "Guten Morgen"]
+concept:(ja) [ja Ja joa "wenn sein muss"]{there}
+concept:(nein) [ne Ne nein Nein "lieber nicht"]{there}
+concept:(bye) [Tschüss bye "auf wiedersehen" chiao tschöö "Bis bald" zurück]{there}
+concept:(Bundesländer) [Bundesländer bundesländer B b]
+concept:(Landeshauptstädte) [Landeshauptstädte landeshauptstädte L l]
+concept:(Nachbarländer) [Nachbarländer nachbarländer N n]
+concept:(Hauptstädte) [Hauptstädte hauptstädte H h]
+concept:(Witz) ["erzähle mir einen Witz" "kennst du Witze"] {there}
+
+
+#Dies ist das Start Proposal der Abfrage
+proposal:%START Willkommen bei der Nachbarländer Abfrage, ich stelle dir ein paar fragen, und du versuchst diese zu beantworten.
+Bei manchen Themen erkläre ich dir vorher noch ein bisschen, bevor die Abfrage startet, ok?
+Sage bitte Start um zu beginnen.
+            u1:(Start) ^gotoRandom(NACHBARLAENDER)
+
+proposal:%NACHBARLAENDER Sehr gerne, lernen wir die Nachbarländer von Deutschland kennen. Wie du sehen kannst ist auf meinem Bildschirm eine Deutschlandkarte abgebildet.
+Auf dieser Karte besitzt jedes Nachbarland von Deutschland eine eigene Nummer. Ich werde dich nach der Nummer fragen und du sagst mir wie das zugehörige Land heißt.
+Wenn du bei einer Frage zum dritten mal falsch geantwortet hast, helfe ich dir bei der Lösung. Sage bitte Start wenn du so weit bist!
+            u1:(Start) ^gotoRandom(NACHBARLAENDER1)
+
+proposal:%NACHBARLAENDER Wie viele Nachbarländer hat Deutschland? kleiner Tipp, auf meinem Display kannst du die richtige Antwort bereits erkennen.
+    u1:(9) Das ist Richtig   nächste Frage?
+        u2:(~ja) ok, hier kommt die nächste Frage ^gotoRandom(NACHBARLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:([*]) Das ist leider Falsch, Deutschland hat 9 Nachbarländer ^gotoRandom(BUNDESLAENDER)
+    u1:(~bye) ^enableThenGoto(EXIT1)
+
+dynamic:genannt2
+dynamic:nicht2
+
+# Hier wird die Abfrage zum Thema Bundesländer nennen erstellt
+proposal:%NACHBARLAENDER Kannst du mir alle Nachbarländer von Deutschland nennen? fangen wir doch einfach mit einem ersten Nachbarn an... ^addToConcept(~nicht2, Dänemark) ^addToConcept(~nicht2, Polen) ^addToConcept(~nicht2, Tschechien) ^addToConcept(~nicht2, Österreich) ^addToConcept(~nicht2, Schweiz) ^addToConcept(~nicht2, Frankreich)^addToConcept(~nicht2, Luxemburg)^addToConcept(~nicht2, Belgien)^addToConcept(~nicht2, Niederlande)
+    u1:(_~nicht2) $1 ist richtig, kennst du noch ein weiteres Nachbarland? ^addToConcept(~genannt2, $1) ^removeFromConcept(~nicht2, $1) ^stayInScope
+    u1:(_~genannt2) $1 hast du schon genannt, kennst du vielleicht noch ein anderes? ^stayInScope
+    u1:(wieviele habe ich schon?)  du hast bereits ^size(~genannt2) genannt ^stayInScope
+    u1:(Wieviele fehlen noch?) dir fehlen noch ^size(~nicht2) Bundesländer ^stayInScope
+    u1:(Welche habe ich schon?) du hast schon ^enumerate(~genannt2) genannt ^stayInScope
+    u1:(ich weiß keines mehr) ok, du hast ^size(~genannt2) gewusst, ^size(~nicht2) fehlen noch. Das sind ^enumerate(~nicht2). ^stayInScope
+    u1:(kannst du mir eins verraten?) eins kann ich dir verraten, ein Bundesland ist zum Beispiel ^enumerate(~nicht2, 1) ^stayInScope
+    u1:(*) Das ist leider falsch, versuche ein anderes Nachbarland zu nennen ^stayInScope
+    u1:(stop) ^enableThenGoto(EXIT1)
+    u1:(wechsel) wechseln wir zu einer anderen Nachbarländerländer frage ^gotoRandom(NACHBARLAENDER)
+
+# Hier wird die Abfrage zum Thema Bundesländer nach Nummern erstellt
+
+proposal:%NACHBARLAENDER Sehr gerne, lernen wir die Nachbarländer von Deutschland kennen. Wie du sehen kannst ist auf meinem Bildschirm eine Deutschlandkarte abgebildet.
+Auf dieser Karte besitzt jedes Nachbarland von Deutschland eine eigene Nummer. Ich werde dich nach der Nummer fragen und du sagst mir wie das zugehörige Land heißt.
+Wenn du bei einer Frage zum dritten mal falsch geantwortet hast, helfe ich dir bei der Lösung. Sage bitte Start wenn du so weit bist!
+            u1:(Start) ^gotoRandom(NACHBARLAENDER1)
+proposal:%NACHBARLAENDER1 Wie lautet das Nachbarland mit der Nummer 1?
+    #bei der richtigen bestätigt Pepper das die Antwort richtig ist und freut sich, zudem fragt er ob eine weitere Frage gestellt werden soll
+    u1:(Dänemark) Das ist Richtig ^execute(Applaus) nächste Frage?
+        #wird diese Frage bejaht wird die nächste Frage Randommäßig ausgewählt
+        u2:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+        #bei nein springt das programm wieder zum Start zurück
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        #sagt der nutzer einen bye befehl, wird gefragt ob der Nutzer aufhören will
+        u2:(~bye) möchtest du aufhören?
+            #bei antwort ja sprint das Programm zurück zum Start
+            u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
+            #bei Antwort nein startet das Proposal erneut
+            u3:(~nein) dann lass uns weiter machen... ^sameProposal
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Dänemark) Das ist Richtig ^execute(Applaus) nächste Frage?
+            u3:(~ja)ok ^gotoRandom(NACHBARLAENDER1)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+            u3:(~bye) möchtest du aufhören?
+                        u4:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
+                        u4:(~nein) dann lass uns weiter machen... ^sameProposal
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u3:(Dänemark) Das ist Richtig ^execute(Applaus) nächste Frage?
+                u3:(*) Das ist leider Falsch, das Nachbarland mit der Nummer 1 heißt Dänemark. Nächste Frage?
+                    u4:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u4:(~nein) ok, dann bis bald ^enableThenGoto(START)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%NACHBARLAENDER1 Wie lautet das Nachbarland mit der Nummer 2?
+    u1:(Niederlande) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) möchtest du aufhören?
+                    u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
+                    u3:(~nein) dann lass uns weiter machen... ^sameProposal
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Niederlande) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(NACHBARLAENDER1)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Niederlande) Das ist Richtig     nächste Frage?
+                u4:(*) Das ist leider Falsch, das Nachbarland mit der Nummer 2 heißt Niederlande. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER1 Wie lautet das Nachbarland mit der Nummer 3?
+    u1:(Belgien) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) möchtest du aufhören?
+                    u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
+                    u3:(~nein) dann lass uns weiter machen... ^sameProposal
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Belgien) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(NACHBARLAENDER1)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Belgien) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Nachbarland mit der Nummer 3 heißt Belgien. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%NACHBARLAENDER1 Wie lautet das Nachbarland mit der Nummer 4?
+    u1:(Luxemburg) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) möchtest du aufhören?
+                    u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
+                    u3:(~nein) dann lass uns weiter machen... ^sameProposal
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Luxemburg) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(NACHBARLAENDER1)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Luxemburg) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Nachbarland mit der Nummer 4 heißt Luxemburg. Nächste Frage?
+                Möchtest du die nächste Frage spielen?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER1 Wie lautet das Nachbarland mit der Nummer 5?
+    u1:(Frankreich) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) möchtest du aufhören?
+                    u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
+                    u3:(~nein) dann lass uns weiter machen... ^sameProposal
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Frankreich) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(NACHBARLAENDER1)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Frankreich) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Nachbarland mit der Nummer 5 heißt Frankreich. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%NACHBARLAENDER1 Wie lautet das Nachbarland mit der Nummer 6?
+    u1:(Schweiz) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) ^gotoRandom(EXIT)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Schweiz) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(NACHBARLAENDER1)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Schweiz) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Nachbarland mit der Nummer 6 heißt Schweiz. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%NACHBARLAENDER1 Wie lautet das Nachbarland mit der Nummer 7?
+    u1:(Österreich) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Österreich) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(NACHBARLAENDER1)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Österreich) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Nachbarland mit der Nummer 7 heißt Österreich. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%NACHBARLAENDER1 Wie lautet das Nachbarland mit der Nummer 8?
+    u1:(Tschechien) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Tschechien) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(NACHBARLAENDER1)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Tschechien) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Nachbarland mit der Nummer 8 heißt Tschechien. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%NACHBARLAENDER1 Wie lautet das Nachbarland mit der Nummer 9?
+    u1:(Polen) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Polen) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(NACHBARLAENDER1)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Polen) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Nachbarland mit der Nummer 9 heißt Polen. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(NACHBARLAENDER1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%EXIT Um zurück zum Startbildschirm zu kommen drücke bitte den HOME Button!
+\pau=1000\Falls du doch weiter machen möchtest sage bitte Weiterspielen!
+    u1:(Weiterspielen) dann lass uns weiter machen...   ^previousProposal
+
+proposal:%EXIT1 Um zurück zum Startbildschirm zu kommen drücke bitte den HOME Button!
+\pau=1000\Falls du doch weiter machen möchtest sage bitte Weiterspielen!
+    u1:(Weiterspielen) dann lass uns weiter machen...   ^gotoRandom(NACHBARLAENDER)
+
