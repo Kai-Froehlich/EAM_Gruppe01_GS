@@ -22,17 +22,17 @@ proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Bayern?
         #wird diese Frage bejaht wird die nächste Frage Randommäßig ausgewählt
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
         #bei nein springt das programm wieder zum Start zurück
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         #sagt der nutzer einen bye befehl, wird gefragt ob der Nutzer aufhören will
         u2:(~bye) möchtest du aufhören?
             #bei antwort ja sprint das Programm zurück zum Start
-            u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(START)
+            u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
             #bei Antwort nein startet das Proposal erneut
             u3:(~nein) dann lass uns weiter machen... ^sameProposal
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(München) Das ist Richtig ^execute(Applaus) nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
             u3:(~bye) möchtest du aufhören?
                         u4:(~ja) ok, Auf Wiedersehen ^enableThenGoto(START)
                         u4:(~nein) dann lass uns weiter machen... ^sameProposal
@@ -41,261 +41,280 @@ proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Bayern?
                 u3:(*) Das ist leider Falsch, die Hauptstadt von Bayern ist München. Nächste Frage?
                     u4:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
                     u4:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) möchtest du aufhören?
-        u2:(~ja) ok, Auf Wiedersehen ^enableThenGoto(START)
-        u2:(~nein) dann lass uns weiter machen... ^sameProposal
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Berlin?
     u1:(Berlin) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(~bye) möchtest du aufhören?
                     u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(START)
                     u3:(~nein) dann lass uns weiter machen... ^sameProposal
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Berlin) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Berlin) Das ist Richtig     nächste Frage?
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Berlin ist Berlin. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Nordrhein-Westphalen?
     u1:(Düsseldorf) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(~bye) möchtest du aufhören?
                     u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(START)
                     u3:(~nein) dann lass uns weiter machen... ^sameProposal
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Düsseldorf) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Düsseldorf) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Nordrhein-Westphalen ist Düsseldorf. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Baden-Würtemberg?
     u1:(Stuttgart) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(~bye) möchtest du aufhören?
                     u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(START)
                     u3:(~nein) dann lass uns weiter machen... ^sameProposal
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Stuttgart) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Stuttgart) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Baden-Würtemberg ist Stuttgart.
                 Möchtest du die nächste Frage spielen?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Niedersachsen?
     u1:(Hannover) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(~bye) möchtest du aufhören?
                     u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(START)
                     u3:(~nein) dann lass uns weiter machen... ^sameProposal
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Hannover) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Hannover) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Niedersachsen ist Hannover. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Sachsen?
     u1:(Dresden) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(~bye) ^gotoRandom(EXIT)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Dresden) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Dresden) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Sachsen ist Dresden. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Sachsen-Anhalt?
     u1:(Magdeburg) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Magdeburg) Das ist Richtig     nächste Frage?
-        u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Magdeburg) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Sachsen-Anhalt ist Magdeburg. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Brandenburg?
+    u1:(Potsdam) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Potsdam) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Potsdam) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, die Hauptstadt von Brandenburg ist Potsdam. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Saarland?
     u1:(Saarbrücken) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Saarbrücken) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Saarbrücken) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Saarland ist Saarbrücken. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Schleswig-Holstein?
     u1:(Kiel) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Kiel) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Kiel) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Schleswig-Holstein ist Kiel. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Mecklenburg-Vorpommern?
     u1:(Schwerin) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Schwerin) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Schwerin) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Mecklenburg-Vorpommern ist Schwerin. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Thüringen?
     u1:(Erfurt) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Erfurt) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Erfurt) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Thüringen ist Erfurt. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Rheinland-Pfalz?
     u1:(Mainz) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Mainz) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Mainz) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Rheinland-Pfalz ist Mainz. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Hamburg?
     u1:(Hamburg) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Hamburg) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Hamburg) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Hamburg ist Hamburg. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Bremen?
     u1:(Bremen) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Bremen) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Bremen) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Bremen ist Bremen. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Hessen?
     u1:(Wiesbaden) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Wiesbaden) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(LANDESHAUPTSTAEDTE)
-            u3:(~nein) ok, dann bis bald ^enableThenGoto(START)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Wiesbaden) Das ist Richtig     nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                 u4:(*) Das ist leider Falsch, die Hauptstadt von Hessen ist Wiesbaden. Nächste Frage?
                     u5:(~ja)ok, ^gotoRandom(LANDESHAUPTSTAEDTE)
-                    u5:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:(~bye) ^enableThenGoto(EXIT1)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
 
 
-proposal:%EXIT1 Möchtest du wirklich aufhören?
-    u1:(~ja) ok, Auf Wiedersehen ^enableThenGoto(START)
-    u1:(~nein) dann lass uns weiter machen...   ^previousProposal
+proposal:%EXIT Um zurück zum Startbildschirm zu kommen drücke bitte den HOME Button!
+\pau=1000\Falls du doch weiter machen möchtest sage bitte Weiterspielen!
+    u1:(Weiterspielen) dann lass uns weiter machen...   ^previousProposal
+
+proposal:%EXIT1 Um zurück zum Startbildschirm zu kommen drücke bitte den HOME Button!
+\pau=1000\Falls du doch weiter machen möchtest sage bitte Weiterspielen!
+    u1:(Weiterspielen) dann lass uns weiter machen...   ^gotoRandom(BUNDESLAENDER)
