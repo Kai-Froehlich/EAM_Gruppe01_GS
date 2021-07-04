@@ -1,6 +1,322 @@
 topic: ~bundeslaender()
-# Defining extra concepts out of words or group of words
-#concept:(hello) [hello hi hey "good morning" greetings]
 
-# Replying to speech
-#u:(~hello) ~hello
+concept:(hallo) ^rand[Hallo hallo hi Hi "Guten Tag" "Guten Morgen"]
+concept:(ja) [ja Ja joa "wenn sein muss"]{there}
+concept:(nein) [ne Ne nein Nein "lieber nicht"]{there}
+concept:(bye) [Tschüss bye "auf wiedersehen" chiao tschöö "Bis bald" zurück]{there}
+concept:(Bundesländer) [Bundesländer bundesländer B b]
+concept:(Landeshauptstädte) [Landeshauptstädte landeshauptstädte L l]
+concept:(Nachbarländer) [Nachbarländer nachbarländer N n]
+concept:(Hauptstädte) [Hauptstädte hauptstädte H h]
+concept:(Witz) ["erzähle mir einen Witz" "kennst du Witze"] {there}
+
+
+#Dies ist das Start Proposal der Abfrage
+proposal:%START Sehr gerne, lernen wir die Bundesländer von Deutschland. Wie du sehen kannst ist auf meinem Bildschirm eine Deutschlandkarte abgebildet.
+Auf dieser Karte besitzt jedes Bundesland eine eigene Nummer. Ich werde dich nach der Nummer fragen und du sagst mir wie das zugehörige Bundesland heißt.
+Wenn du bei einer Frage zum dritten mal falsch geantwortet hast, helfe ich dir bei der Lösung. Sage bitte Start wenn du so weit bist!
+            u:(Start) ^gotoRandom(BUNDESLAENDER)
+
+# Hier wird die Abfrage zum Thema Bundesländer erstellt
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 1?
+    #bei der richtigen bestätigt Pepper das die Antwort richtig ist und freut sich, zudem fragt er ob eine weitere Frage gestellt werden soll
+    u1:(Baden-Württemberg) Das ist Richtig ^execute(Applaus) nächste Frage?
+        #wird diese Frage bejaht wird die nächste Frage Randommäßig ausgewählt
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        #bei nein springt das programm wieder zum Start zurück
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        #sagt der nutzer einen bye befehl, wird gefragt ob der Nutzer aufhören will
+        u2:(~bye) möchtest du aufhören?
+            #bei antwort ja sprint das Programm zurück zum Start
+            u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
+            #bei Antwort nein startet das Proposal erneut
+            u3:(~nein) dann lass uns weiter machen... ^sameProposal
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Baden-Württemberg) Das ist Richtig ^execute(Applaus) nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+            u3:(~bye) möchtest du aufhören?
+                        u4:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT)
+                        u4:(~nein) dann lass uns weiter machen... ^sameProposal
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u3:(Baden-Württemberg) Das ist Richtig ^execute(Applaus) nächste Frage?
+                u3:(*) Das ist leider Falsch, das Bundesland mit der Nummer 1 heißt Baden-Württemberg. Nächste Frage?
+                    u4:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u4:(~nein) ok, dann bis bald ^enableThenGoto(EXIT)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 2?
+    u1:(Bayern) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) möchtest du aufhören?
+                    u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
+                    u3:(~nein) dann lass uns weiter machen... ^sameProposal
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Bayern) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Bayern) Das ist Richtig     nächste Frage?
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 2 heißt Bayern. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 3?
+    u1:(Berlin) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) möchtest du aufhören?
+                    u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
+                    u3:(~nein) dann lass uns weiter machen... ^sameProposal
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Berlin) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Berlin) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 3 heißt Berlin. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 4?
+    u1:(Brandenburg) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) möchtest du aufhören?
+                    u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
+                    u3:(~nein) dann lass uns weiter machen... ^sameProposal
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Brandenburg) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Brandenburg) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 4 heißt Brandenburg. Nächste Frage?
+                Möchtest du die nächste Frage spielen?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 5?
+    u1:(Bremen) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) möchtest du aufhören?
+                    u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
+                    u3:(~nein) dann lass uns weiter machen... ^sameProposal
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Bremen) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Bremen) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 5 heißt Bremen. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 6?
+    u1:(Hamburg) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) ^gotoRandom(EXIT)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Hamburg) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Hamburg) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 6 heißt Hamburg. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 7?
+    u1:(Hessen) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Hessen) Das ist Richtig     nächste Frage?
+        u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Hessen) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 7 heißt Hessen. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 8?
+    u1:(Mecklenburg-Vorpommern) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Mecklenburg-Vorpommern) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Mecklenburg-Vorpommern) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 8 heißt Mecklenburg-Vorpommern. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 9?
+    u1:(Niedersachsen) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Niedersachsen) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Niedersachsen) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 9 heißt Niedersachsen. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 10?
+    u1:(Nordrhein-Westfalen) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Nordrhein-Westfalen) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Nordrhein-Westfalen) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 10 heißt Nordrhein-Westfalen. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 11?
+    u1:(Rheinland-Pfalz) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Rheinland-Pfalz) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Rheinland-Pfalz) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 11 heißt Rheinland-Pfalz. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 12?
+    u1:(Saarland) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Saarland) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Saarland) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 12 heißt Saarland. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 13?
+    u1:(Sachsen) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Sachsen) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Sachsen) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 13 heißt Sachsen. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 14?
+    u1:(Sachsen-Anhalt) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Sachsen-Anhalt) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Sachsen-Anhalt) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 14 heißt Sachsen-Anhalt. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 15?
+    u1:(Schleswig-Holstein) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Schleswig-Holstein) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Schleswig-Holstein) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 15 heißt Schleswig-Holstein. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 16?
+    u1:(Thüringen) Das ist Richtig     nächste Frage?
+        u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+        u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
+        u2:(Thüringen) Das ist Richtig     nächste Frage?
+            u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
+                u4:(Thüringen) Das ist Richtig     nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                u4:(*) Das ist leider Falsch, das Bundesland mit der Nummer 16 heißt Thüringen. Nächste Frage?
+                    u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
+                    u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+    u1:(~bye) ^enableThenGoto(EXIT)
+
+proposal:%EXIT Um zurück zum Startbildschirm zu kommen drücke bitte den HOME Button!
+\pau=1000\Falls du doch weiter machen möchtest sage bitte Weiterspielen!
+    u1:(Weiterspielen) dann lass uns weiter machen...   ^previousProposal
+
+proposal:%EXIT1 Um zurück zum Startbildschirm zu kommen drücke bitte den HOME Button!
+\pau=1000\Falls du doch weiter machen möchtest sage bitte Weiterspielen!
+    u1:(Weiterspielen) dann lass uns weiter machen...   ^gotoRandom(BUNDESLAENDER)
