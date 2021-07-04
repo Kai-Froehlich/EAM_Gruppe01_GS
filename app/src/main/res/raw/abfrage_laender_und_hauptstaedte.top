@@ -34,16 +34,22 @@ proposal:%BUNDESLAENDER Wie viele Bundesländer hat Deutschland?
         u2:(~ja) ok, hier kommt die nächste Frage ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
     u1:([*]) Das ist leider Falsch, Deutschland hat 16 Bundesländer ^gotoRandom(BUNDESLAENDER)
-    #u1:(~bye) Auf Wiedersehen ^goto(START)
-    #u1:(~bye) ^gotoReactivate(START)
+    u1:(~bye) ^enableThenGoto(EXIT1)
 
-proposal:%BUNDESLAENDER Kannst du alle Bundesländer von Deutschland aufzählen??
-    u1:(NRW) Sehr gut, nächste Frage? #NRW als platzhalter für alle Bundesländer
-        u2:(~ja) ok, hier kommt die nächste Frage ^gotoRandom(BUNDESLAENDER)
-        u2:(~nein) ok, dann bis bald ^enableThenGoto(START)
-    u1:([*]) Das ist leider Falsch, Deutschland hat 16 Bundesländer ^gotoRandom(BUNDESLAENDER)
-    u1:(~bye) Auf Wiedersehen ^enableThenGoto(START)
-    #u1:(zurück) ^gotoReactivate(START)
+dynamic:genannt
+dynamic:nicht
+
+proposal:%BUNDESLAENDER Willkommen zur Bundesländer Abfrage ^addToConcept(~nicht, Nordrhein-Westfalen) ^addToConcept(~nicht, Baden-Württemberg) ^addToConcept(~nicht, Niedersachsen) ^addToConcept(~nicht, Sachsen) ^addToConcept(~nicht, Sachsen-Anhalt) ^addToConcept(~nicht, Brandenburg)^addToConcept(~nicht, Berlin)^addToConcept(~nicht, Bayern)^addToConcept(~nicht, Saarland)^addToConcept(~nicht, Schleswig-Holstein)^addToConcept(~nicht, Mecklenburg-Vorpommern)^addToConcept(~nicht, Thüringen)^addToConcept(~nicht, Rheinland-Pfalz)^addToConcept(~nicht, Hamburg)^addToConcept(~nicht, Bremen)^addToConcept(~nicht, Hessen)
+    u1:(_~nicht) $1 ist richtig, kennst du noch ein weiteres Bundesland? ^addToConcept(~genannt, $1) ^removeFromConcept(~nicht, $1) ^stayInScope
+    u1:(_~genannt) $1 hast du schon genannt, kennst du vielleicht noch ein anderes? ^stayInScope
+    u1:(wieviele habe ich schon?)  du hast bereits ^size(~genannt) genannt ^stayInScope
+    u1:(Wieviele fehlen noch?) dir fehlen noch ^size(~nicht) Bundesländer ^stayInScope
+    u1:(Welche habe ich schon?) du hast schon ^enumerate(~genannt) genannt ^stayInScope
+    u1:(ich weiß keines mehr) ok, du hast ^size(~genannt) gewusst, ^size(~nicht) fehlen noch. Das sind ^enumerate(~nicht). ^stayInScope
+    u1:(kannst du mir eins verraten?) eins kann ich dir verraten, ein Bundesland ist zum Beispiel ^enumerate(~nicht, 1) ^stayInScope
+    u1:(*) Das ist leider falsch, versuche ein anderes Bundesland zu nennen ^stayInScope
+    u1:(~bye) ^enableThenGoto(EXIT1)
+    u1:(wechsel) wechseln wir zu einer anderen Bundesländer frage ^gotoRandom(BUNDESLAENDER)
 
 
 # Hier wird die Abfrage zum Thema Landeshauptstädte erstellt
@@ -327,7 +333,27 @@ proposal:%LANDESHAUPTSTAEDTE Wie lautet die Hauptstadt von Hessen?
     u1:(~bye) ^enableThenGoto(EXIT1)
 
 
-proposal:%NACHBARLAENDER
+proposal:%NACHBARLAENDER Wie viele Nachbarländer hat Deutschland?
+                             u1:(9) Das ist Richtig   nächste Frage?
+                                 u2:(~ja) ok, hier kommt die nächste Frage ^gotoRandom(NACHBARLAENDER)
+                                 u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                             u1:([*]) Das ist leider Falsch, Deutschland hat 9 Nachbarländer ^gotoRandom(BUNDESLAENDER)
+                             u1:(~bye) ^enableThenGoto(EXIT1)
+
+dynamic:genannt2
+dynamic:nicht2
+
+proposal:%NACHBARLAENDER Willkommen zur Nachbarländer Abfrage ^addToConcept(~nicht2, Dänemark) ^addToConcept(~nicht2, Polen) ^addToConcept(~nicht2, Tschechien) ^addToConcept(~nicht2, Österreich) ^addToConcept(~nicht2, Schweiz) ^addToConcept(~nicht2, Frankreich)^addToConcept(~nicht2, Luxemburg)^addToConcept(~nicht2, Belgien)^addToConcept(~nicht2, Niederlande)
+u1:(_~nicht2) $1 ist richtig, kennst du noch ein weiteres Nachbarland? ^addToConcept(~genannt2, $1) ^removeFromConcept(~nicht2, $1) ^stayInScope
+u1:(_~genannt2) $1 hast du schon genannt, kennst du vielleicht noch ein anderes? ^stayInScope
+u1:(wieviele habe ich schon?)  du hast bereits ^size(~genannt2) genannt ^stayInScope
+u1:(Wieviele fehlen noch?) dir fehlen noch ^size(~nicht2) Bundesländer ^stayInScope
+u1:(Welche habe ich schon?) du hast schon ^enumerate(~genannt2) genannt ^stayInScope
+u1:(ich weiß keines mehr) ok, du hast ^size(~genannt2) gewusst, ^size(~nicht2) fehlen noch. Das sind ^enumerate(~nicht2). ^stayInScope
+u1:(kannst du mir eins verraten?) eins kann ich dir verraten, ein Bundesland ist zum Beispiel ^enumerate(~nicht2, 1) ^stayInScope
+u1:(*) Das ist leider falsch, versuche ein anderes Nachbarland zu nennen ^stayInScope
+u1:(stop) ^enableThenGoto(EXIT1)
+u1:(wechsel) wechseln wir zu einer anderen Nachbarländerländer frage ^gotoRandom(NACHBARLAENDER)
 
 proposal:%HAUPTSTAEDTE Wie lautet die Hauptstadt von Frankreich?
                           u1:(Paris) Das ist Richtig     nächste Frage?
