@@ -20,7 +20,7 @@ import com.aldebaran.qi.sdk.builder.TopicBuilder
 import com.aldebaran.qi.sdk.design.activity.RobotActivity
 
 class Abfrage : RobotActivity(), RobotLifecycleCallbacks {
-//Beginn 1 neu
+
     //Store the qiChatbot
     lateinit var qiChatbot: QiChatbot
 
@@ -28,7 +28,7 @@ class Abfrage : RobotActivity(), RobotLifecycleCallbacks {
     lateinit var topic: Topic
     lateinit var locale: Locale
 
-    //anlegen der 4 auswahlbutton
+    //anlegen (Initialisieren) der 4 Auswahlbuttons und definieren dieser als button
     lateinit var button1: Button
     lateinit var button2: Button
     lateinit var button3: Button
@@ -37,18 +37,18 @@ class Abfrage : RobotActivity(), RobotLifecycleCallbacks {
     //Store the animate action
     private var animate: Animate? = null
 
-//Ende 1 neu
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_abfrage)
-//Beginn 2 neu
+    //Definieren der 4 Buttons (Button1 ruft bspw. die activity Bundeslaender auf)
         button1 = findViewById(R.id.Bundeslaender)
         button2 = findViewById(R.id.Landeshauptstaedte)
         button3 = findViewById(R.id.Nachbarlaender)
         button4 = findViewById(R.id.Hauptstaedte_der_Nachbarlaender)
-//Ende 2 neu
+
         QiSDK.register(this,this)
-//Beginn 3 neu
+    // Durch ein klick auf den Button wird die oben definierte Activity aufgerufen
         button1.setOnClickListener {
             val intent = Intent(this,Bundeslaender::class.java)
             startActivity(intent)
@@ -65,7 +65,7 @@ class Abfrage : RobotActivity(), RobotLifecycleCallbacks {
             val intent = Intent(this,Hauptstaedte_der_Nachbarlaender::class.java)
             startActivity(intent)
         }
-//Ende 3 neu
+
     }
 
     override fun onRobotFocusGained(qiContext: QiContext?) {
