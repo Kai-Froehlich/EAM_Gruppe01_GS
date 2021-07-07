@@ -17,8 +17,6 @@
         android:layout_height="75dp"
         android:layout_weight="0"
         android:orientation="horizontal">
-
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="600dp"
@@ -29,7 +27,6 @@
             android:text="Bundesländer"
             android:textColor="@android:color/black"
             android:textSize="36sp" />
-
         <Button
             android:id="@+id/home1"
             android:layout_width="100dp"
@@ -40,17 +37,12 @@
             android:text="HOME"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
-
     </LinearLayout>
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="400dp"
         android:layout_height="400dp"
         android:layout_weight="1"
         app:srcCompat="@drawable/laender_nummeriert" />
-
-
-
 </LinearLayout>
 
