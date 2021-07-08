@@ -11,6 +11,13 @@ concept:(Witz) ["erzähle mir einen Witz" "kennst du Witze"] {there}
 
 
 #Bergüßung und und verlinkung zum Start Proposal
+u:(ich möchte Bundesländer lernen) Wenn du Bundesländer lernen möchtest, drücke bitte auf den Button Bundesländer.
+u:(ich möchte Landeshauptstädte lernen) Wenn du die Hauptstädte der Bundesländer lernen möchtet, drücke bitte auf den Landeshauptstädte Button.
+u:(ich möchte Nachbarländer lernen) Wenn du Nachbarländer lernen möchtest, drücke bitte auf den Button Nachbarländer.
+u:(ich möchte die Hauptstädte der Nachbarländer lernen) Wenn du die Hauptstädte der Nachbarländer lernen möchtet, drücke bitte auf den Hauptstädte der Nachbarländer Button.
+u:(~bye) Wenn du aufhören möchtest, drücke bitte auf den HOME Button.
+
+
 u:(~hallo) ~hallo ^goto(START)
 # als mögliche Antworten stehen Bundesländer, Landeshauptstädte, Nachbarländer und Hauptstädte zur verfügung
 # mit Hilfe des "^goto" Befehls werden die entsprechenden proposals aufgerufen
