@@ -77,6 +77,21 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
         }
     }
 
+    class MyQiChatTabletExecutor(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
+        override fun runWith(params: MutableList<String>?) {
+            animate(qiContext)
+        }
+
+        override fun stop() {
+            TODO("Not yet implemented")
+        }
+        private fun animate(qiContext: QiContext?){
+            val animation: Animation = AnimationBuilder.with(qiContext).withResources(R.raw.show_tablet_a002).build()
+            val animate: Animate = AnimateBuilder.with(qiContext).withAnimation(animation).build()
+            animate.run()
+        }
+    }
+
 
 
 
@@ -100,6 +115,10 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
 
 
         executors["funny"] = MainActivity.MyQiChatFunExecutor(qiContext)
+        qiChatbot.executors = executors
+        chatbots.add(qiChatbot)
+
+        executors["Zeigen"] = MainActivity.MyQiChatTabletExecutor(qiContext)
         qiChatbot.executors = executors
         chatbots.add(qiChatbot)
 

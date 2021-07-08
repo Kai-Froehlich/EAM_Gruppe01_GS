@@ -15,7 +15,7 @@ u:(~Begrüßung) ~Begrüßung  ^execute(Begruessung) ^goto(START)
 
 
 proposal: %START Was kann ich für dich tun?
-    u:(~Spielen) Alles klar! Such dir das Spiel über das Tablet aus.
+    u:(~Spielen) Alles klar! Such dir das Spiel über das Tablet aus. ^execute(Zeigen)
     u:(~Witz) ^gotoRandom(WITZE)
     u:(~Wohlbefinden_Frage) ^goto(Wohlbefinden_proposal)
     u:(~Ort) ^goto(Ort_proposal)
@@ -48,4 +48,4 @@ proposal:%Wohlbefinden_proposal ~Wohlbefinden
 
 proposal:%Ort_proposal Ich komme aus Japan und woher kommst du?
     u1:(~Land)  Cool! ^enableThenGoto(START)
-    u1:(_*) Ah interessant das stammst du so wie ich woanders her! ^enableThenGoto(START)
+    u1:(_*) Ah interessant! dann stammst du so wie ich woanders her! ^enableThenGoto(START)
