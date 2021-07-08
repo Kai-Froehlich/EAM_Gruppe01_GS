@@ -88,7 +88,6 @@ class Zahlenraum20 : RobotActivity(), RobotLifecycleCallbacks {
     private fun randomize() {
         val Zahl_A = Random.nextInt(0,20)
         qiChatbot.variable("peppersNumber").value = "$Zahl_A"
-
     }
 
     override fun onRobotFocusLost() {

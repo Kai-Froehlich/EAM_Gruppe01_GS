@@ -26,8 +26,6 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
     lateinit var button1: Button
     lateinit var button2: Button
 
-    private var animate: Animate? = null
-    private var animate1: Animate? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,20 +62,23 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
         }
     }
 
-    //class MyQiChatExecutor(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
-    //    override fun runWith(params: MutableList<String>?) {
-    //        animate1(qiContext)
-    //    }
+    class MyQiChatFunExecutor(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
+        override fun runWith(params: MutableList<String>?) {
+            animate(qiContext)
+        }
 
-    //    override fun stop() {
-    //        TODO("Not yet implemented")
-    //    }
-    //    private fun animate1(qiContext: QiContext?){
-    //        val animation1: Animation = AnimationBuilder.with(qiContext).withResources(R.raw.funny_a001).build()
-    //        val animate1: Animate = AnimateBuilder.with(qiContext).withAnimation(animation1).build()
-    //        animate1.run()
-    //   }
-    //}
+        override fun stop() {
+            TODO("Not yet implemented")
+        }
+        private fun animate(qiContext: QiContext?){
+            val animation: Animation = AnimationBuilder.with(qiContext).withResources(R.raw.funny_a001).build()
+            val animate: Animate = AnimateBuilder.with(qiContext).withAnimation(animation).build()
+            animate.run()
+        }
+    }
+
+
+
 
 
     override fun onRobotFocusGained(qiContext: QiContext?) {
@@ -97,11 +98,10 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
         val chatbots = mutableListOf<Chatbot>()
         chatbots.add(qiChatbot)
 
-        //val executors2 = HashMap<String, QiChatExecutor>()
-        //executors2["funny"] = MainActivity.MyQiChatExecutor(qiContext)
-        //qiChatbot.executors = executors2
-        //val chatbots2 = mutableListOf<Chatbot>()
-        //chatbots2.add(qiChatbot)
+
+        executors["funny"] = MainActivity.MyQiChatFunExecutor(qiContext)
+        qiChatbot.executors = executors
+        chatbots.add(qiChatbot)
 
         chat.async().run()
     }

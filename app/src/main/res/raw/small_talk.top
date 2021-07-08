@@ -1,29 +1,25 @@
 topic: ~small_talk()
 
-#concept:(Spielen) [Mr.X lernen Länder Bundesländer Haupstädte spielen "Mister X"]
+concept:(Spielen) [Mr.X lernen Länder Bundesländer Haupstädte spielen "Mister X" "Mr.X spielen"]
 concept:(Begrüßung) ^rand{Hallo Hey Hi "Guten Morgen"}
 concept:(Witz) ["erzähle mir einen Witz" "kennst du Witze"]
-#concept:(Wohlbefinden_Frage) ["Wie geht es" "Wie fühlst du dich"]
-#concept:(Wohlbefinden) ["Heute geht es mir sehr gut wie geht es dir?" "Mir geht es gut! Wie fühlst du dich heute?" "Ich fühle mich toll! Wie geht es dir?" "Heute füle ich mich nicht so gut! Wie geht es dir?"]
-#concept:(Wohlbefinden_gut) [gut prima klassse bestens]
-#concept:(Wohlbefinden_schlecht) [schlecht "gar nicht gut" "nicht so toll"]
-#concept:(Ort) ["Woher kommst du?" "Woher satammst du?" "Aus welchem Land kommst du?"]
-#concept:(Land) [Deutschland]
+concept:(Wohlbefinden_Frage) ["Wie geht es" "Wie fühlst du dich"]
+concept:(Wohlbefinden) ["Heute geht es mir sehr gut wie geht es dir?" "Mir geht es gut! Wie fühlst du dich heute?" "Ich fühle mich toll! Wie geht es dir?" "Heute füle ich mich nicht so gut! Wie geht es dir?"]
+concept:(Wohlbefinden_gut) [gut prima klassse bestens]
+concept:(Wohlbefinden_schlecht) [schlecht "gar nicht gut" "nicht so toll"]
+concept:(Ort) ["Woher kommst du?" "Woher satammst du?" "Aus welchem Land kommst du?"]
+concept:(Land) [Deutschland]
 
 
 u:(~Begrüßung) ~Begrüßung  ^execute(Begruessung) ^goto(START)
-#u:(~Begrüßung) ~Begrüßung  ^goto(START)
-#u:(~Begrüßung) ~Begrüßung  ^execute(Begruessung)
-
-#u:(~Witz) ^gotoRandom(WITZE)
 
 
 proposal: %START Was kann ich für dich tun?
-#    u:(~Spielen) Alles klar! Such dir das Spiel auf dem Tablet aus.
+    u:(~Spielen) Alles klar! Such dir das Spiel über das Tablet aus.
     u:(~Witz) ^gotoRandom(WITZE)
-#    u:(~Wohlbefinden_Frage) ^goto(Wohlbefinden_proposal)
-#    u:(~Ort) ^goto(Ort_proposal)
-#    u:(nichts) Ok!
+    u:(~Wohlbefinden_Frage) ^goto(Wohlbefinden_proposal)
+    u:(~Ort) ^goto(Ort_proposal)
+    u:(nichts) Ok!
 
 
 proposal:%WITZE Was ist klein, grün und dreieckig?
@@ -42,13 +38,14 @@ proposal:%WITZE Was sagt der große Stift zum kleinen Stift?
 
 proposal:%WITZE Was liegt am Strand und ist schlecht zu verstehen?
     u1:(weiß nicht) Eine Nuschel! ^execute(funny) ^enableThenGoto(START)
+    u1:(weiß nicht) Eine Nuschel!  ^enableThenGoto(START)
     u1:(Eine Nuschel!) Oh Schade dann kanntest du den Witz schon!  ^enableThenGoto(START)
 
 
-#proposal:%Wohlbefinden_proposal ~Wohlbefinden
-#    u1:(~Wohlbefinden_gut) Sehr gut, dass freut mich!  ^enableThenGoto(START)
-#    u1:(~Wohlbefinden_schlecht) Oh das ist schade. Morgen geht es dir bestimmt besser!  ^enableThenGoto(START)
+proposal:%Wohlbefinden_proposal ~Wohlbefinden
+    u1:(~Wohlbefinden_gut) Sehr gut, dass freut mich!  ^enableThenGoto(START)
+    u1:(~Wohlbefinden_schlecht) Oh das ist schade. Morgen geht es dir bestimmt besser!  ^enableThenGoto(START)
 
-#proposal:%Ort_proposal Ich komme aus Japan und woher kommst du?
-#    u1:(~Land)  Cool! ^enableThenGoto(START)
-#    u1:(_*) Ah interessant das stammst du so wie ich woanders her! ^enableThenGoto(START)
+proposal:%Ort_proposal Ich komme aus Japan und woher kommst du?
+    u1:(~Land)  Cool! ^enableThenGoto(START)
+    u1:(_*) Ah interessant das stammst du so wie ich woanders her! ^enableThenGoto(START)

@@ -11,7 +11,7 @@ u1:(Ist es die Zahl _$peppersNumber) Super, du hast meine Zahl erraten! ^execute
 u1:(Ist es die Zahl _*)
     $guessedNumber = $1
     ^first[
-    "Leider falsch! Meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"
+    "Meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"
     "Meine Zahl ist kleiner als deine! $guessedNumber > $peppersNumber"
     ] ^stayInScope
     #enablethengoto
@@ -23,7 +23,7 @@ u1:(Ist es die Zahl _$peppersNumber) Super, du hast meine Zahl erraten! ^execute
 u1:(Ist es die Zahl _*)
     $guessedNumber = $1
     ^first[
-    "Leider falsch, meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"
+    "Meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"
     "Meine Zahl ist kleiner als deine! $guessedNumber > $peppersNumber"
     ] ^stayInScope
 u1:(Keine Lust mehr) Okay!
@@ -34,7 +34,7 @@ u1:(Ist es die Zahl _$peppersNumber) Super, du hast meine Zahl erraten! ^execute
 u1:(Ist es die Zahl _*)
     $guessedNumber = $1
     ^first[
-    "Leider falsch, meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"
+    "Meine Zahl ist größer als deine! $guessedNumber < $peppersNumber"
     "Meine Zahl ist kleiner als deine! $guessedNumber > $peppersNumber"
     ] ^stayInScope
 u1:(Keine Lust mehr) Okay!
