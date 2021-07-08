@@ -1,8 +1,0 @@
-topic: ~small_talk_rev02()
-
-
-concept:(Begrüßung) ^rand{Hallo Hey Hi "Guten Morgen"}
-
-
-u:(~Begrüßung) ~Begrüßung  ^execute(Begruessung)
-

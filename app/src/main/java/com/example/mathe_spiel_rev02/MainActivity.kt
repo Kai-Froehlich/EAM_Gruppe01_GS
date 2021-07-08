@@ -17,12 +17,14 @@ import com.aldebaran.qi.sdk.design.activity.RobotActivity
 
 class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
 
-    // Store the QiChatbot.
+    // Speichern des QiChatbot.
     lateinit var qiChatbot: QiChatbot
+
     lateinit var chat: Chat
     lateinit var topic : Topic
     lateinit var locale : Locale
 
+    // Speichern der Buttons
     lateinit var button1: Button
     lateinit var button2: Button
 
@@ -30,23 +32,28 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Setzen des Tablet Layout auf den activity_small_talk_view
         setContentView(R.layout.activity_small_talk)
 
+        // Gespeicherten Buttons, mit Buttons aus Tablet Layout verknüpfen
         button1 = findViewById(R.id.Mr_x)
         button2 = findViewById(R.id.Abfrage)
 
         QiSDK.register(this,this)
 
+        // Nach Betätigung des Button1 wechsel in die Activity Mr_X
         button1.setOnClickListener {
             val intent = Intent(this,Mr_X::class.java)
             startActivity(intent)
         }
+        // Nach Betätigung des Button2 wechsel in die Activity Abfrage
         button2.setOnClickListener {
             val intent = Intent(this,Abfrage::class.java)
             startActivity(intent)
         }
     }
 
+    // Erstellung der Klasse und Definition, Ausfühurng der Begrüßungs-Gestik
     class MyQiChatExecutor(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
         override fun runWith(params: MutableList<String>?) {
             animate(qiContext)
@@ -61,7 +68,7 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
             animate.run()
         }
     }
-
+    // Erstellung der Klasse und Definition, Ausfühurng der Lustigen-Gestik
     class MyQiChatFunExecutor(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
         override fun runWith(params: MutableList<String>?) {
             animate(qiContext)
@@ -77,6 +84,7 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
         }
     }
 
+    // Erstellung der Klasse und Definition, Ausfühurng der Zeig aufs Tablet-Gestik
     class MyQiChatTabletExecutor(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
         override fun runWith(params: MutableList<String>?) {
             animate(qiContext)
@@ -107,21 +115,24 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
         // Chat erstellen
         chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).withLocale(locale).build()
 
+        // Klasse der Begrüßung mit execute(Begruessung) im Chat verknüpfen
         val executors = HashMap<String, QiChatExecutor>()
         executors["Begruessung"] = MainActivity.MyQiChatExecutor(qiContext)
         qiChatbot.executors = executors
         val chatbots = mutableListOf<Chatbot>()
         chatbots.add(qiChatbot)
 
-
+        // Klasse der lustigen Reaktion mit execute(funny) im Chat verknüpfen
         executors["funny"] = MainActivity.MyQiChatFunExecutor(qiContext)
         qiChatbot.executors = executors
         chatbots.add(qiChatbot)
 
+        // Klasse des auf Tablet zeigen mit execute(Zeigen) im Chat verknüpfen
         executors["Zeigen"] = MainActivity.MyQiChatTabletExecutor(qiContext)
         qiChatbot.executors = executors
         chatbots.add(qiChatbot)
 
+        // Start des Chats
         chat.async().run()
     }
 

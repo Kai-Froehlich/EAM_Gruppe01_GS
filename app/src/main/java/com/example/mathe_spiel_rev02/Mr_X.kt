@@ -19,19 +19,18 @@ import com.aldebaran.qi.sdk.design.activity.RobotActivity
 
 class Mr_X : RobotActivity(), RobotLifecycleCallbacks  {
 
-    // Store the QiChatbot.
+    // Speichern des QiChatbot.
     lateinit var qiChatbot: QiChatbot
-
     lateinit var chat: Chat
     lateinit var topic : Topic
     lateinit var locale : Locale
 
-
+    // Speichern der Buttons
     lateinit var button1: Button
     lateinit var button2: Button
     lateinit var button3: Button
 
-    // Store the Animate action.
+    // Speichern der Animate action.
     private var animate: Animate? = null
 
 
@@ -39,20 +38,24 @@ class Mr_X : RobotActivity(), RobotLifecycleCallbacks  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Tablet Buttons des gespeicherten Buttons zuordnen
          button1 = findViewById(R.id.Zahlenraum20)
          button2 = findViewById(R.id.Zahlenraum50)
          button3 = findViewById(R.id.Zahlenraum100)
 
         QiSDK.register(this,this)
 
+        // Wechseln in die Activity Zahlenraum 20 durch Betätigung des Buttons 1
         button1.setOnClickListener {
             val intent = Intent(this,Zahlenraum20::class.java)
             startActivity(intent)
         }
+        // Wechseln in die Activity Zahlenraum 50 durch Betätigung des Buttons 2
         button2.setOnClickListener {
             val intent = Intent(this,Zahlenraum50::class.java)
             startActivity(intent)
         }
+        // Wechseln in die Activity Zahlenraum 100 durch Betätigung des Buttons 3
         button3.setOnClickListener {
             val intent = Intent(this,Zahlenraum100::class.java)
             startActivity(intent)
@@ -72,13 +75,15 @@ class Mr_X : RobotActivity(), RobotLifecycleCallbacks  {
         // Chat erstellen
         chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).withLocale(locale).build()
 
+        // Beginn des Chats mit dem proposal Spiel
         chat.addOnStartedListener { goToBookmark("Spiel") }
 
-
+        // Start des Chats
         chat.async().run()
 
     }
 
+    // Definition der goToBookmark. BookMark hat hohe wichtigkeit und Reaktion wird unmittlebar ausgeführt
     private fun  goToBookmark(bookmarkName : String) {
         qiChatbot.goToBookmark(
                 topic.bookmarks[bookmarkName],

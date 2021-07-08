@@ -17,21 +17,23 @@ import kotlin.random.Random
 
 class Zahlenraum20 : RobotActivity(), RobotLifecycleCallbacks {
 
-    // Store the QiChatbot.
+    // Speichern des QiChatbots.
     lateinit var qiChatbot: QiChatbot
     lateinit var chat: Chat
     lateinit var topic : Topic
     lateinit var locale : Locale
-    // Store the Animate action.
+    // Speichern der  Animate action.
     private var animate: Animate? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Zeigen des Layouts activity_zahlenraum auf dem Tablet
         setContentView(R.layout.activity_zahlenraum)
         QiSDK.register(this,this)
     }
 
+    // Klasse für Applaus definieren und Animationen aufbauen und ausführen
     class MyQiChatExecutor(qiContext: QiContext?): BaseQiChatExecutor(qiContext){
         override fun runWith(params: MutableList<String>?) {
             animate(qiContext)
@@ -59,11 +61,13 @@ class Zahlenraum20 : RobotActivity(), RobotLifecycleCallbacks {
         // Chat erstellen
         chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).withLocale(locale).build()
 
+        // Aufruf der randomize Funktion
         randomize()
+        // Beginn des Chats mit Bookmark Zahlenraum20
         chat.addOnStartedListener { goToBookmark("Zahlenraum20") }
 
 
-        // Animation
+        // Animation wird mit excecute(Applaus) im chat topic verknüpft
         val executors = HashMap<String,QiChatExecutor>()
         executors["Applaus"] = MyQiChatExecutor(qiContext)
         qiChatbot.executors = executors
@@ -71,13 +75,10 @@ class Zahlenraum20 : RobotActivity(), RobotLifecycleCallbacks {
         chatbots.add(qiChatbot)
 
 
-        //chat.addOnStartedListener { goToBookmark("Zahlenraum20") }
         // Ausführen des Chats
-        // Get the variable.
-
         chat.async().run()
     }
-
+    // Definition der goToBookmark. BookMark hat hohe wichtigkeit und Reaktion wird unmittlebar ausgeführt
     private fun  goToBookmark(bookmarkName : String) {
         qiChatbot.goToBookmark(
             topic.bookmarks[bookmarkName],
@@ -85,6 +86,7 @@ class Zahlenraum20 : RobotActivity(), RobotLifecycleCallbacks {
             AutonomousReactionValidity.IMMEDIATE)
     }
 
+    // Speichert eine zufällige Zahl in einem Zahlenraum von 0-20 und übergibt diese an den qichatbot
     private fun randomize() {
         val Zahl_A = Random.nextInt(0,20)
         qiChatbot.variable("peppersNumber").value = "$Zahl_A"
