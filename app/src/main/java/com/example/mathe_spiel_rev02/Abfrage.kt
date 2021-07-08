@@ -8,9 +8,7 @@ import com.aldebaran.qi.sdk.QiContext
 import com.aldebaran.qi.sdk.QiSDK
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks
 import com.aldebaran.qi.sdk.`object`.actuation.Animate
-import com.aldebaran.qi.sdk.`object`.conversation.Chat
-import com.aldebaran.qi.sdk.`object`.conversation.QiChatbot
-import com.aldebaran.qi.sdk.`object`.conversation.Topic
+import com.aldebaran.qi.sdk.`object`.conversation.*
 import com.aldebaran.qi.sdk.`object`.locale.Language
 import com.aldebaran.qi.sdk.`object`.locale.Locale
 import com.aldebaran.qi.sdk.`object`.locale.Region
@@ -33,6 +31,7 @@ class Abfrage : RobotActivity(), RobotLifecycleCallbacks {
     lateinit var button2: Button
     lateinit var button3: Button
     lateinit var button4: Button
+    lateinit var button5: Button
 
     //Store the animate action
     private var animate: Animate? = null
@@ -46,6 +45,7 @@ class Abfrage : RobotActivity(), RobotLifecycleCallbacks {
         button2 = findViewById(R.id.Landeshauptstaedte)
         button3 = findViewById(R.id.Nachbarlaender)
         button4 = findViewById(R.id.Hauptstaedte_der_Nachbarlaender)
+        button5 = findViewById(R.id.home1)
 
         QiSDK.register(this,this)
     // Durch ein klick auf den Button wird die oben definierte Activity aufgerufen
@@ -65,6 +65,10 @@ class Abfrage : RobotActivity(), RobotLifecycleCallbacks {
             val intent = Intent(this,Hauptstaedte_der_Nachbarlaender::class.java)
             startActivity(intent)
         }
+        button5.setOnClickListener {
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
@@ -78,7 +82,14 @@ class Abfrage : RobotActivity(), RobotLifecycleCallbacks {
         //Chat erstellen
         val chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).withLocale(locale).build()
         //Ausführen des Chats
-        chat.run()
+                chat.run()
+    }
+
+    private fun  goToBookmark(bookmarkName : String) {
+        qiChatbot.goToBookmark(
+            topic.bookmarks[bookmarkName],
+            AutonomousReactionImportance.HIGH,
+            AutonomousReactionValidity.IMMEDIATE)
     }
 
     override fun onRobotFocusLost() {
