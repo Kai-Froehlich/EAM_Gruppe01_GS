@@ -1,169 +1,178 @@
 topic: ~hauptstaedte()
 
-concept:(hallo) ^rand[Hallo hallo hi Hi "Guten Tag" "Guten Morgen"]
 concept:(ja) [ja Ja joa "wenn sein muss"]{there}
 concept:(nein) [ne Ne nein Nein "lieber nicht"]{there}
 concept:(bye) [Tschüss bye "auf wiedersehen" chiao tschöö "Bis bald" zurück]{there}
-concept:(Bundesländer) [Bundesländer bundesländer B b]
-concept:(Landeshauptstädte) [Landeshauptstädte landeshauptstädte L l]
-concept:(Nachbarländer) [Nachbarländer nachbarländer N n]
-concept:(Hauptstädte) [Hauptstädte hauptstädte H h]
-concept:(Witz) ["erzähle mir einen Witz" "kennst du Witze"] {there}
-
 
 #Dies ist das Start Proposal der Abfrage
 proposal:%START Sehr gerne, lernen wir die Hauptstädte der Nachbarländer, wenn du bei einer Frage zum dritten mal falsch geantwortet hast, helfe ich dir bei der Lösung. Sage bitte Start wenn du so weit bist!
+            #mit dem Befehl Start wird die Abfrage zufallsmäßig gestartet
             u:(Start) ^gotoRandom(HAUPTSTAEDTE)
 
+#zu beginn wird die entsprechende Frage gestellt
 proposal:%HAUPTSTAEDTE Wie lautet die Hauptstadt von Frankreich?
-                          u1:(Paris) Das ist Richtig     nächste Frage?
+                          #bei richtiger Antwort freut sich pepper, bestätigt die Antwort und fragt ob es weitergehen soll
+                          u1:(Paris) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
+                              #wenn es weitergehen soll wird die nächste frage zufallsmäßig ausgewählt
                               u2:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
+                              #wenn nicht wird das EXIT proposal gestartet
                               u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+                          #bei Falscher Antwort sagt pepper dass die Antwort falsch ist und wieviele Versuche man noch hat
                           u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
-                              u2:(Paris) Das ist Richtig     nächste Frage?
+                              u2:(Paris) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                   u3:(~ja)ok ^gotoRandom(HAUPTSTAEDTE)
                                   u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                               u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
-                                      u4:(Paris) Das ist Richtig     nächste Frage?
+                                      u4:(Paris) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Frankreich ist Paris. Nächste Frage?
+                                      #bei dreimaliger falscher Antwort hilft Pepper indem er die richtige Antwort nennt.
+                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Frankreich ist Paris.
+                                      Möchtest du die nächste Frage spielen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%HAUPTSTAEDTE Wie lautet die Hauptstadt von Belgien?
-                          u1:(Brüssel) Das ist Richtig     nächste Frage?
+                          u1:(Brüssel) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                               u2:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                               u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
-                              u2:(Brüssel) Das ist Richtig     nächste Frage?
+                              u2:(Brüssel) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                   u3:(~ja)ok ^gotoRandom(HAUPTSTAEDTE)
                                   u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                               u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
-                                      u4:(Brüssel) Das ist Richtig     nächste Frage?
+                                      u4:(Brüssel) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Belgien ist Brüssel. Nächste Frage?
+                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Belgien ist Brüssel.
+                                      Möchtest du die nächste Frage spielen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%HAUPTSTAEDTE Wie lautet die Hauptstadt von Dänemark?
-                          u1:(Kopenhagen) Das ist Richtig     nächste Frage?
+                          u1:(Kopenhagen) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                               u2:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                               u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
-                              u2:(Kopenhagen) Das ist Richtig     nächste Frage?
+                              u2:(Kopenhagen) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                   u3:(~ja)ok ^gotoRandom(HAUPTSTAEDTE)
                                   u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                               u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
-                                      u4:(Kopenhagen) Das ist Richtig     nächste Frage?
+                                      u4:(Kopenhagen) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Dänemark ist Kopenhagen. Nächste Frage?
+                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Dänemark ist Kopenhagen.
+                                      Möchtest du die nächste Frage spielen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%HAUPTSTAEDTE Wie lautet die Hauptstadt von Polen?
-                          u1:(Warschau) Das ist Richtig     nächste Frage?
+                          u1:(Warschau) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                               u2:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                               u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
-                              u2:(Warschau) Das ist Richtig     nächste Frage?
+                              u2:(Warschau) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                   u3:(~ja)ok ^gotoRandom(HAUPTSTAEDTE)
                                   u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                               u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
-                                      u4:(Warschau) Das ist Richtig     nächste Frage?
+                                      u4:(Warschau) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Polen ist Warschau. Nächste Frage?
+                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Polen ist Warschau.
+                                      Möchtest du die nächste Frage spielen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%HAUPTSTAEDTE Wie lautet die Hauptstadt von Tschechien?
-                          u1:(Prag) Das ist Richtig     nächste Frage?
+                          u1:(Prag) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                               u2:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                               u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
-                              u2:(Prag) Das ist Richtig     nächste Frage?
+                              u2:(Prag) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                   u3:(~ja)ok ^gotoRandom(HAUPTSTAEDTE)
                                   u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                               u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
-                                      u4:(Prag) Das ist Richtig     nächste Frage?
+                                      u4:(Prag) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Tschechien ist Prag. Nächste Frage?
+                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Tschechien ist Prag.
+                                      Möchtest du die nächste Frage spielen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%HAUPTSTAEDTE Wie lautet die Hauptstadt von Österreich?
-                          u1:(Wien) Das ist Richtig     nächste Frage?
+                          u1:(Wien) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                               u2:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                               u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
-                              u2:(Wien) Das ist Richtig     nächste Frage?
+                              u2:(Wien) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                   u3:(~ja)ok ^gotoRandom(HAUPTSTAEDTE)
                                   u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                               u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
-                                      u4:(Wien) Das ist Richtig     nächste Frage?
+                                      u4:(Wien) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Österreich ist Wien. Nächste Frage?
+                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Österreich ist Wien.
+                                      Möchtest du die nächste Frage spielen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%HAUPTSTAEDTE Wie lautet die Hauptstadt von der Schweiz?
-                          u1:(Bern) Das ist Richtig     nächste Frage?
+                          u1:(Bern) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                               u2:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                               u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
-                              u2:(Bern) Das ist Richtig     nächste Frage?
+                              u2:(Bern) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                   u3:(~ja)ok ^gotoRandom(HAUPTSTAEDTE)
                                   u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                               u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
-                                      u4:(Bern) Das ist Richtig     nächste Frage?
+                                      u4:(Bern) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-                                      u4:(*) Das ist leider Falsch, die Hauptstadt von der Schweiz ist Bern. Nächste Frage?
+                                      u4:(*) Das ist leider Falsch, die Hauptstadt von der Schweiz ist Bern.
+                                      Möchtest du die nächste Frage spielen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%HAUPTSTAEDTE Wie lautet die Hauptstadt von Luxemburg?
-                          u1:(Luxemburg) Das ist Richtig     nächste Frage?
+                          u1:(Luxemburg) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                               u2:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                               u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
-                              u2:(Luxemburg) Das ist Richtig     nächste Frage?
+                              u2:(Luxemburg) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                   u3:(~ja)ok ^gotoRandom(HAUPTSTAEDTE)
                                   u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                               u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
-                                      u4:(Luxemburg) Das ist Richtig     nächste Frage?
+                                      u4:(Luxemburg) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Luxemburg ist Luxemburg. Nächste Frage?
+                                      u4:(*) Das ist leider Falsch, die Hauptstadt von Luxemburg ist Luxemburg.
+                                      Möchtest du die nächste Frage spielen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(~bye) ^enableThenGoto(EXIT)
 
 proposal:%HAUPTSTAEDTE Wie lautet die Hauptstadt von der Niederlande?
-                          u1:(Amsterdam) Das ist Richtig     nächste Frage?
+                          u1:(Amsterdam) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                               u2:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                               u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
-                              u2:(Amsterdam) Das ist Richtig     nächste Frage?
+                              u2:(Amsterdam) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                   u3:(~ja)ok ^gotoRandom(HAUPTSTAEDTE)
                                   u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                               u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
-                                      u4:(Amsterdam) Das ist Richtig     nächste Frage?
+                                      u4:(Amsterdam) Das ist Richtig ^execute(Applaus) möchtest du weitermachen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-                                      u4:(*) Das ist leider Falsch, die Hauptstadt von der Niederlande ist Amsterdam. Nächste Frage?
+                                      u4:(*) Das ist leider Falsch, die Hauptstadt von der Niederlande ist Amsterdam.
+                                      Möchtest du die nächste Frage spielen?
                                           u5:(~ja)ok, ^gotoRandom(HAUPTSTAEDTE)
                                           u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
                           u1:(~bye) ^enableThenGoto(EXIT)
