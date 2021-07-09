@@ -4,12 +4,7 @@ concept:(hallo) ^rand[Hallo hallo hi Hi "Guten Tag" "Guten Morgen"]
 concept:(ja) [ja Ja joa "wenn sein muss"]{there}
 concept:(nein) [ne Ne nein Nein "lieber nicht"]{there}
 concept:(bye) [Tschüss bye "auf wiedersehen" chiao tschöö "Bis bald" zurück]{there}
-concept:(Bundesländer) [Bundesländer bundesländer B b]
-concept:(Landeshauptstädte) [Landeshauptstädte landeshauptstädte L l]
-concept:(Nachbarländer) [Nachbarländer nachbarländer N n]
-concept:(Hauptstädte) [Hauptstädte hauptstädte H h]
-concept:(Witz) ["erzähle mir einen Witz" "kennst du Witze"] {there}
-
+concept:(wechsel) [Wechsel "Ich möchte wechseln" "andere Frage" "was anderes"]
 
 #Dies ist das Start Proposal der Abfrage
 proposal:%START Willkommen bei der Bundesländer Abfrage, ich stelle dir ein paar fragen, und du versuchst diese zu beantworten.
@@ -17,50 +12,57 @@ proposal:%START Willkommen bei der Bundesländer Abfrage, ich stelle dir ein paa
                 Sage bitte Start um zu beginnen.
             u1:(Start) ^gotoRandom(BUNDESLAENDER1)
 
-dynamic:genannt
+dynamic:genannt #hier werden dynamische Concepts erstellt
 dynamic:nicht
+concept:(habe) ["wieviele habe ich schon"] #hier werden die im folgenden Proposal benötigten concepts erstellt
+concept:(fehlen) ["Wieviele fehlen noch"]
+concept:(welche) ["Welche habe ich schon"]
+concept:(keins) ["ich weiß keines mehr"]
+concept:(verraten) ["kannst du mir eins verraten"]
+#hier entsteht die Abfrage nach alle Bundesländern, diese werden in das dynamische Concept nicht geladen
 proposal:%BUNDESLAENDER1 Kannst du mir alle Bundesländer von Deutschland nennen? fangen wir doch einfach mit einem ersten Bundesland an...  ^addToConcept(~nicht, Nordrhein-Westfalen)
 ^addToConcept(~nicht, Baden-Württemberg) ^addToConcept(~nicht, Niedersachsen) ^addToConcept(~nicht, Sachsen) ^addToConcept(~nicht, Sachsen-Anhalt) ^addToConcept(~nicht, Brandenburg)
 ^addToConcept(~nicht, Berlin) ^addToConcept(~nicht, Bayern) ^addToConcept(~nicht, Saarland) ^addToConcept(~nicht, Schleswig-Holstein) ^addToConcept(~nicht, Mecklenburg-Vorpommern)
 ^addToConcept(~nicht, Thüringen) ^addToConcept(~nicht, Rheinland-Pfalz) ^addToConcept(~nicht, Hamburg) ^addToConcept(~nicht, Bremen) ^addToConcept(~nicht, Hessen)
-u1:(_~nicht) $1 ist richtig, kennst du noch ein weiteres Bundesland? ^addToConcept(~genannt, $1) ^removeFromConcept(~nicht, $1) ^stayInScope
-u1:(_~genannt) $1 hast du schon genannt, kennst du vielleicht noch ein anderes? ^stayInScope
-u1:(wieviele habe ich schon?)  du hast bereits ^size(~genannt) genannt ^stayInScope
-u1:(Wieviele fehlen noch?) dir fehlen noch ^size(~nicht) Bundesländer ^stayInScope
-u1:(Welche habe ich schon?) du hast schon ^enumerate(~genannt) genannt ^stayInScope
-u1:(ich weiß keines mehr) ok, du hast ^size(~genannt) gewusst, ^size(~nicht) fehlen noch. Das sind ^enumerate(~nicht). ^stayInScope
-u1:(kannst du mir eins verraten?) eins kann ich dir verraten, ein Bundesland ist zum Beispiel ^enumerate(~nicht, 1) ^stayInScope
-u1:(*) Das ist leider falsch, versuche ein anderes Bundesland zu nennen ^stayInScope
-u1:(~bye) ^enableThenGoto(EXIT1)
-u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    #wenn ein Bundesland genannt wurde, wird dieses aus dem nicht concept entfernt und in das genannt concept eingefügt
+    u1:(_~nicht) $1 ist richtig, kennst du noch ein weiteres Bundesland? ^addToConcept(~genannt, $1) ^removeFromConcept(~nicht, $1) ^stayInScope
+    #wenn ein Bundesland zum zweiten mal genannt wird, weist pepper darauf hin, dass das Bundesland schon genannt wurde
+    u1:(_~genannt) $1 hast du schon genannt, kennst du vielleicht noch ein anderes? ^stayInScope
+    #auf die Frage wieviele habe ich schon gibt pepper die Antwort wieviele Bundesländer schon genannt wurden
+    u1:(~habe)  du hast bereits ^size(~genannt) genannt ^stayInScope
+    #auf die frage wieviele fehlen noch gibt pepper die antwort wieviele noch fehlen
+    u1:(~fehlen) dir fehlen noch ^size(~nicht) Bundesländer ^stayInScope
+    #hier zählt pepper auf welche Bundesländer schon genannt wurden
+    u1:(~welche) du hast schon ^enumerate(~genannt) genannt ^stayInScope
+    #sollte der/die Schüler/in kein Bundesland mehr wissen, sagt pepper wieviele genannt wurden und wieviele noch fehlen
+    u1:(~keins) ok, du hast ^size(~genannt) gewusst, ^size(~nicht) fehlen noch. Das sind ^enumerate(~nicht). ^stayInScope
+    #pepper kann auch ein Budesland verraten, wenn er danach gefragt wird
+    u1:(~verraten) eins kann ich dir verraten, ein Bundesland ist zum Beispiel ^enumerate(~nicht, 1) ^stayInScope
+    #bei allen nicht aufgelisteten Antworten gibt pepper raus, dass die Antwort falsch ist
+    u1:(*) Das ist leider falsch, versuche ein anderes Bundesland zu nennen ^stayInScope
+    #über den bye befehl wechselt man in das Exit Proposal, wo das beenden der Abfrage erläutert wird
+    u1:(~bye) ^enableThenGoto(EXIT1)
+    #über den Wechsel befehl kann man zu einer anderen Bundesland Abfrage springen
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER1 Weißt du welches Bundesland das größte ist?
-    #bei der richtigen bestätigt Pepper das die Antwort richtig ist und freut sich, zudem fragt er ob eine weitere Frage gestellt werden soll
     u1:(Bayern) Das ist Richtig ^execute(Applaus) nächste Frage?
-        #wird diese Frage bejaht wird die nächste Frage Randommäßig ausgewählt
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
-        #bei nein springt das programm wieder zum Start zurück
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-        #sagt der nutzer einen bye befehl, wird gefragt ob der Nutzer aufhören will
-        u2:(~bye) möchtest du aufhören?
-            #bei antwort ja sprint das Programm zurück zum Start
-            u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
-            #bei Antwort nein startet das Proposal erneut
-            u3:(~nein) dann lass uns weiter machen... ^sameProposal
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Bayern) Das ist Richtig ^execute(Applaus) nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
             u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-            u3:(~bye) möchtest du aufhören?
-                        u4:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT)
-                        u4:(~nein) dann lass uns weiter machen... ^sameProposal
+            u3:(~bye) ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u3:(Bayern) Das ist Richtig ^execute(Applaus) nächste Frage?
                 u3:(*) Das ist leider Falsch, das größte Bundesland ist mit einer Fläche von 70.542 Quadratkilometer Bayern. Nächste Frage?
                     u4:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u4:(~nein) ok, dann bis bald ^enableThenGoto(EXIT)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    #über den Wechsel befehl lässt sich die Frage innerhalb des Bereichs Bundesländer wechseln
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER1 Weißt du welches Bundesland das kleinste ist?
     #bei der richtigen bestätigt Pepper das die Antwort richtig ist und freut sich, zudem fragt er ob eine weitere Frage gestellt werden soll
@@ -70,25 +72,19 @@ proposal:%BUNDESLAENDER1 Weißt du welches Bundesland das kleinste ist?
         #bei nein springt das programm wieder zum Start zurück
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         #sagt der nutzer einen bye befehl, wird gefragt ob der Nutzer aufhören will
-        u2:(~bye) möchtest du aufhören?
-            #bei antwort ja sprint das Programm zurück zum Start
-            u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
-            #bei Antwort nein startet das Proposal erneut
-            u3:(~nein) dann lass uns weiter machen... ^sameProposal
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Bremen) Das ist Richtig ^execute(Applaus) nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
             u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-            u3:(~bye) möchtest du aufhören?
-                        u4:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT)
-                        u4:(~nein) dann lass uns weiter machen... ^sameProposal
+            u3:(~bye) ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u3:(Bremen) Das ist Richtig ^execute(Applaus) nächste Frage?
                 u3:(*) Das ist leider Falsch, das kleinste Bundesland von Deutschland ist mit einer Fläche von 419 Quadratkilometer Bremen. Nächste Frage?
                     u4:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u4:(~nein) ok, dann bis bald ^enableThenGoto(EXIT)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER1 Sehr gerne, lernen wir die Bundesländer von Deutschland. Wie du sehen kannst ist auf meinem Bildschirm eine Deutschlandkarte abgebildet.
 Auf dieser Karte besitzt jedes Bundesland eine eigene Nummer. Ich werde dich nach der Nummer fragen und du sagst mir wie das zugehörige Bundesland heißt.
@@ -104,34 +100,28 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 1?
         #bei nein springt das programm wieder zum Start zurück
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
         #sagt der nutzer einen bye befehl, wird gefragt ob der Nutzer aufhören will
-        u2:(~bye) möchtest du aufhören?
-            #bei antwort ja sprint das Programm zurück zum Start
-            u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
-            #bei Antwort nein startet das Proposal erneut
-            u3:(~nein) dann lass uns weiter machen... ^sameProposal
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Baden-Württemberg) Das ist Richtig ^execute(Applaus) nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
             u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-            u3:(~bye) möchtest du aufhören?
-                        u4:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT)
-                        u4:(~nein) dann lass uns weiter machen... ^sameProposal
+            u3:(~bye) ^enableThenGoto(EXIT1)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u3:(Baden-Württemberg) Das ist Richtig ^execute(Applaus) nächste Frage?
                 u3:(*) Das ist leider Falsch, das Bundesland mit der Nummer 1 heißt Baden-Württemberg. Nächste Frage?
                     u4:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u4:(~nein) ok, dann bis bald ^enableThenGoto(EXIT)
+    #an Anfang der Frage gibt es die möglichkeit über den bye Befehl zum EXIT proposal zu springen
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    #zusätzlich gibt es am Anfang dre Frage jeweils die möglichkeit zu einer Anderen Frage innerhalb der Bundesländer Abfrage zu springen.
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 2?
     u1:(Bayern) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-        u2:(~bye) möchtest du aufhören?
-                    u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
-                    u3:(~nein) dann lass uns weiter machen... ^sameProposal
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Bayern) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -142,15 +132,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 2?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 3?
     u1:(Berlin) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-        u2:(~bye) möchtest du aufhören?
-                    u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
-                    u3:(~nein) dann lass uns weiter machen... ^sameProposal
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Berlin) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -163,15 +151,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 3?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 4?
     u1:(Brandenburg) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-        u2:(~bye) möchtest du aufhören?
-                    u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
-                    u3:(~nein) dann lass uns weiter machen... ^sameProposal
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Brandenburg) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -185,15 +171,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 4?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 5?
     u1:(Bremen) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-        u2:(~bye) möchtest du aufhören?
-                    u3:(~ja) ok, Auf Wiedersehen ^enableThenGoto(EXIT1)
-                    u3:(~nein) dann lass uns weiter machen... ^sameProposal
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Bremen) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -206,13 +190,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 5?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 6?
     u1:(Hamburg) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
-        u2:(~bye) ^gotoRandom(EXIT)
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Hamburg) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -225,15 +209,16 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 6?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 7?
     u1:(Hessen) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Hessen) Das ist Richtig     nächste Frage?
-        u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+            u3:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
         u2:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 1 Versuch
                 u4:(Hessen) Das ist Richtig     nächste Frage?
@@ -243,12 +228,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 7?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 8?
     u1:(Mecklenburg-Vorpommern) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Mecklenburg-Vorpommern) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -261,12 +247,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 8?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 9?
     u1:(Niedersachsen) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Niedersachsen) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -279,12 +266,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 9?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 10?
     u1:(Nordrhein-Westfalen) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Nordrhein-Westfalen) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -297,12 +285,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 10?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 11?
     u1:(Rheinland-Pfalz) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Rheinland-Pfalz) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -315,12 +304,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 11?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 12?
     u1:(Saarland) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Saarland) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -333,12 +323,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 12?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 13?
     u1:(Sachsen) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Sachsen) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -351,12 +342,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 13?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 14?
     u1:(Sachsen-Anhalt) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Sachsen-Anhalt) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -369,12 +361,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 14?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 15?
     u1:(Schleswig-Holstein) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Schleswig-Holstein) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -387,12 +380,13 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 15?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 16?
     u1:(Thüringen) Das ist Richtig     nächste Frage?
         u2:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
         u2:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
+        u2:(~bye) ^enableThenGoto(EXIT1)
     u1:(*) Das ist leider Falsch, versuche es noch einmal, du hast noch 2 Versuche
         u2:(Thüringen) Das ist Richtig     nächste Frage?
             u3:(~ja)ok ^gotoRandom(BUNDESLAENDER)
@@ -405,7 +399,7 @@ proposal:%BUNDESLAENDER Wie lautet das Bundesland mit der Nummer 16?
                     u5:(~ja)ok, ^gotoRandom(BUNDESLAENDER)
                     u5:(~nein) ok, dann bis bald ^enableThenGoto(EXIT1)
     u1:(~bye) ^enableThenGoto(EXIT)
-    u1:(wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
+    u1:(~wechsel) wechseln wir zu einer anderen Bundesländerländer frage ^enableThenGoto(BUNDESLAENDER1)
 
 proposal:%EXIT Um zurück zum Startbildschirm zu kommen drücke bitte den HOME Button!
 \pau=1000\Falls du doch weiter machen möchtest sage bitte Weiterspielen!
